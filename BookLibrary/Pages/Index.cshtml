@@ -1,0 +1,12 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <p>Books read this week: @Model.BooksWeek</p>
+    <p>Books read this month: @Model.BooksMonth</p>
+    <p>Books read this year: @Model.BooksYear</p>
+
+</div>
