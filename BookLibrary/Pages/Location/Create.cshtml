@@ -1,4 +1,5 @@
 ﻿@page
+@addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
 @model BookLibrary.Pages.Location.CreateModel
 
 @{
@@ -20,7 +21,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Location.LocationType" class="control-label"></label>
-                <select asp-for="Location.LocationType" class="form-control"></select>
+                <select asp-for="Location.LocationType" class="form-control" asp-items="@Model.LocationTypes"></select>
                 <span asp-validation-for="Location.LocationType" class="text-danger"></span>
             </div>
             <div class="form-group">

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using BookLibrary.Data;
 using BookLibrary.Models;
+using BookLibrary.Extensions;
 
 namespace BookLibrary.Pages.Location
 {
@@ -21,13 +22,14 @@ namespace BookLibrary.Pages.Location
 
         public IActionResult OnGet()
         {
+            this.LocationTypes = new SelectList(PopulateDropdowns.GetLocationTypes());
             return Page();
         }
 
         [BindProperty]
         public BookLibrary.Models.Location Location { get; set; } = default!;
+        public SelectList LocationTypes { get; set; }
         
-
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
