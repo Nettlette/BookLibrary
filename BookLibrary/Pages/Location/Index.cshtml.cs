@@ -25,7 +25,7 @@ namespace BookLibrary.Pages.Location
         {
             if (_context.Locations != null)
             {
-                Location = await _context.Locations.ToListAsync();
+                Location = await _context.Locations.OrderBy(x => x.LocationType).ThenBy(x => x.Name).ToListAsync();
             }
         }
     }

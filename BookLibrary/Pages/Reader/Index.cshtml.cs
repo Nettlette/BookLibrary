@@ -25,7 +25,7 @@ namespace BookLibrary.Pages.Reader
         {
             if (_context.Readers != null)
             {
-                Reader = await _context.Readers.ToListAsync();
+                Reader = await _context.Readers.OrderBy(x => x.Name).ToListAsync();
             }
         }
     }

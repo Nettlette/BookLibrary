@@ -10,6 +10,8 @@
     public enum LocationType
     {
         State,
-        Country
+        Country,
+        Continent,
+        Other
     }
 }
