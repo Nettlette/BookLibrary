@@ -22,7 +22,7 @@ namespace BookLibrary.Pages.Location
 
         public IActionResult OnGet()
         {
-            this.LocationTypes = new SelectList(PopulateDropdowns.GetLocationTypes());
+            this.LocationTypes = new SelectList(PopulateDropdowns.GetLocationTypes(), "Value", "Text");
             return Page();
         }
 
