@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Primary") ?? throw new InvalidOperationException("Connection string 'Primary' not found.")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Dev") ?? throw new InvalidOperationException("Connection string 'Primary' not found.")));
 
 var app = builder.Build();
 
