@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using BookLibrary.Data;
 using BookLibrary.Models;
 
-namespace BookLibrary.Pages.Location
+namespace BookLibrary.Pages.Subcategory
 {
     public class DetailsModel : PageModel
     {
@@ -19,23 +19,23 @@ namespace BookLibrary.Pages.Location
             _context = context;
         }
 
-      public BookLibrary.Models.Location Location { get; set; } = default!; 
+      public BookLibrary.Models.Subcategory Subcategory { get; set; } = default!; 
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Locations == null)
+            if (id == null || _context.Subcategory == null)
             {
                 return NotFound();
             }
 
-            var location = await _context.Locations.FirstOrDefaultAsync(m => m.LocationID == id);
-            if (location == null)
+            var subcategory = await _context.Subcategory.FirstOrDefaultAsync(m => m.SubcategoryId == id);
+            if (subcategory == null)
             {
                 return NotFound();
             }
             else 
             {
-                Location = location;
+                Subcategory = subcategory;
             }
             return Page();
         }

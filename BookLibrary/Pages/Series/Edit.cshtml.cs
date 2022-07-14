@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using BookLibrary.Data;
 using BookLibrary.Models;
 
-namespace BookLibrary.Pages.Location
+namespace BookLibrary.Pages.Series
 {
     public class EditModel : PageModel
     {
@@ -21,21 +21,21 @@ namespace BookLibrary.Pages.Location
         }
 
         [BindProperty]
-        public BookLibrary.Models.Location Location { get; set; } = default!;
+        public BookLibrary.Models.Series Series { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Locations == null)
+            if (id == null || _context.Series == null)
             {
                 return NotFound();
             }
 
-            var location =  await _context.Locations.FirstOrDefaultAsync(m => m.LocationID == id);
-            if (location == null)
+            var series =  await _context.Series.FirstOrDefaultAsync(m => m.SeriesId == id);
+            if (series == null)
             {
                 return NotFound();
             }
-            Location = location;
+            Series = series;
             return Page();
         }
 
@@ -48,7 +48,7 @@ namespace BookLibrary.Pages.Location
                 return Page();
             }
 
-            _context.Attach(Location).State = EntityState.Modified;
+            _context.Attach(Series).State = EntityState.Modified;
 
             try
             {
@@ -56,7 +56,7 @@ namespace BookLibrary.Pages.Location
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!LocationExists(Location.LocationID))
+                if (!SeriesExists(Series.SeriesId))
                 {
                     return NotFound();
                 }
@@ -69,9 +69,9 @@ namespace BookLibrary.Pages.Location
             return RedirectToPage("./Index");
         }
 
-        private bool LocationExists(int id)
+        private bool SeriesExists(int id)
         {
-          return (_context.Locations?.Any(e => e.LocationID == id)).GetValueOrDefault();
+          return (_context.Series?.Any(e => e.SeriesId == id)).GetValueOrDefault();
         }
     }
 }

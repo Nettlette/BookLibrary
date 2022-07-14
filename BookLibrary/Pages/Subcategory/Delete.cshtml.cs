@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using BookLibrary.Data;
 using BookLibrary.Models;
 
-namespace BookLibrary.Pages.Location
+namespace BookLibrary.Pages.Subcategory
 {
     public class DeleteModel : PageModel
     {
@@ -20,40 +20,40 @@ namespace BookLibrary.Pages.Location
         }
 
         [BindProperty]
-      public BookLibrary.Models.Location Location { get; set; } = default!;
+      public BookLibrary.Models.Subcategory Subcategory { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Locations == null)
+            if (id == null || _context.Subcategory == null)
             {
                 return NotFound();
             }
 
-            var location = await _context.Locations.FirstOrDefaultAsync(m => m.LocationID == id);
+            var subcategory = await _context.Subcategory.FirstOrDefaultAsync(m => m.SubcategoryId == id);
 
-            if (location == null)
+            if (subcategory == null)
             {
                 return NotFound();
             }
             else 
             {
-                Location = location;
+                Subcategory = subcategory;
             }
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(int? id)
         {
-            if (id == null || _context.Locations == null)
+            if (id == null || _context.Subcategory == null)
             {
                 return NotFound();
             }
-            var location = await _context.Locations.FindAsync(id);
+            var subcategory = await _context.Subcategory.FindAsync(id);
 
-            if (location != null)
+            if (subcategory != null)
             {
-                Location = location;
-                _context.Locations.Remove(Location);
+                Subcategory = subcategory;
+                _context.Subcategory.Remove(Subcategory);
                 await _context.SaveChangesAsync();
             }
 

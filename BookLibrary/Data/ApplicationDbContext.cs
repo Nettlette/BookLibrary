@@ -20,5 +20,7 @@ namespace BookLibrary.Data
             IConfiguration configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json", true, true).Build();
             optionsBuilder.UseSqlServer(configuration.GetConnectionString("Primary"));
         }
+
+        public DbSet<BookLibrary.Models.Subcategory>? Subcategory { get; set; }
     }
 }

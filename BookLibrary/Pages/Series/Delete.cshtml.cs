@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using BookLibrary.Data;
 using BookLibrary.Models;
 
-namespace BookLibrary.Pages.Location
+namespace BookLibrary.Pages.Series
 {
     public class DeleteModel : PageModel
     {
@@ -20,40 +20,40 @@ namespace BookLibrary.Pages.Location
         }
 
         [BindProperty]
-      public BookLibrary.Models.Location Location { get; set; } = default!;
+      public BookLibrary.Models.Series Series { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Locations == null)
+            if (id == null || _context.Series == null)
             {
                 return NotFound();
             }
 
-            var location = await _context.Locations.FirstOrDefaultAsync(m => m.LocationID == id);
+            var series = await _context.Series.FirstOrDefaultAsync(m => m.SeriesId == id);
 
-            if (location == null)
+            if (series == null)
             {
                 return NotFound();
             }
             else 
             {
-                Location = location;
+                Series = series;
             }
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(int? id)
         {
-            if (id == null || _context.Locations == null)
+            if (id == null || _context.Series == null)
             {
                 return NotFound();
             }
-            var location = await _context.Locations.FindAsync(id);
+            var series = await _context.Series.FindAsync(id);
 
-            if (location != null)
+            if (series != null)
             {
-                Location = location;
-                _context.Locations.Remove(Location);
+                Series = series;
+                _context.Series.Remove(Series);
                 await _context.SaveChangesAsync();
             }
 

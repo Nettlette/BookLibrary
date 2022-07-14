@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using BookLibrary.Data;
 using BookLibrary.Models;
 
-namespace BookLibrary.Pages.Location
+namespace BookLibrary.Pages.Series
 {
     public class IndexModel : PageModel
     {
@@ -19,13 +19,13 @@ namespace BookLibrary.Pages.Location
             _context = context;
         }
 
-        public IList<BookLibrary.Models.Location> Location { get;set; } = default!;
+        public IList<BookLibrary.Models.Series> Series { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            if (_context.Locations != null)
+            if (_context.Series != null)
             {
-                Location = await _context.Locations.ToListAsync();
+                Series = await _context.Series.ToListAsync();
             }
         }
     }

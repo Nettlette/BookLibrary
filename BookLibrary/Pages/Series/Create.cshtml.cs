@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using BookLibrary.Data;
 using BookLibrary.Models;
 
-namespace BookLibrary.Pages.Location
+namespace BookLibrary.Pages.Series
 {
     public class CreateModel : PageModel
     {
@@ -25,18 +25,18 @@ namespace BookLibrary.Pages.Location
         }
 
         [BindProperty]
-        public BookLibrary.Models.Location Location { get; set; } = default!;
+        public BookLibrary.Models.Series Series { get; set; } = default!;
         
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid || _context.Locations == null || Location == null)
+          if (!ModelState.IsValid || _context.Series == null || Series == null)
             {
                 return Page();
             }
 
-            _context.Locations.Add(Location);
+            _context.Series.Add(Series);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

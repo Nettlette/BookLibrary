@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using BookLibrary.Data;
 using BookLibrary.Models;
 
-namespace BookLibrary.Pages.Location
+namespace BookLibrary.Pages.Subcategory
 {
     public class EditModel : PageModel
     {
@@ -21,21 +21,21 @@ namespace BookLibrary.Pages.Location
         }
 
         [BindProperty]
-        public BookLibrary.Models.Location Location { get; set; } = default!;
+        public BookLibrary.Models.Subcategory Subcategory { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Locations == null)
+            if (id == null || _context.Subcategory == null)
             {
                 return NotFound();
             }
 
-            var location =  await _context.Locations.FirstOrDefaultAsync(m => m.LocationID == id);
-            if (location == null)
+            var subcategory =  await _context.Subcategory.FirstOrDefaultAsync(m => m.SubcategoryId == id);
+            if (subcategory == null)
             {
                 return NotFound();
             }
-            Location = location;
+            Subcategory = subcategory;
             return Page();
         }
 
@@ -48,7 +48,7 @@ namespace BookLibrary.Pages.Location
                 return Page();
             }
 
-            _context.Attach(Location).State = EntityState.Modified;
+            _context.Attach(Subcategory).State = EntityState.Modified;
 
             try
             {
@@ -56,7 +56,7 @@ namespace BookLibrary.Pages.Location
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!LocationExists(Location.LocationID))
+                if (!SubcategoryExists(Subcategory.SubcategoryId))
                 {
                     return NotFound();
                 }
@@ -69,9 +69,9 @@ namespace BookLibrary.Pages.Location
             return RedirectToPage("./Index");
         }
 
-        private bool LocationExists(int id)
+        private bool SubcategoryExists(int id)
         {
-          return (_context.Locations?.Any(e => e.LocationID == id)).GetValueOrDefault();
+          return (_context.Subcategory?.Any(e => e.SubcategoryId == id)).GetValueOrDefault();
         }
     }
 }
