@@ -26,23 +26,30 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Author) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateBorn)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateDied)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.AuthorId">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.AuthorId">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.AuthorId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Author)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @if (item.DateBorn.Equals("1/1/1900"))
+                    {
+                        @Html.DisplayFor(modelItem => item.DateBorn)
+                    }
+                </td>
+                <td>
+                    @if (item.DateDied.Equals("1/1/1900"))
+                    {
+                        @Html.DisplayFor(modelItem => item.DateDied)
+                    }
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.AuthorId">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.AuthorId">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.AuthorId">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

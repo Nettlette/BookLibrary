@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using BookLibrary.Data;
 using BookLibrary.Models;
+using BookLibrary.Extensions;
 
 namespace BookLibrary.Pages.Book
 {
@@ -21,11 +22,22 @@ namespace BookLibrary.Pages.Book
 
         public IActionResult OnGet()
         {
+            Authors = new SelectList(PopulateDropdowns.GetAuthors(_context), "Value", "Text");
+            Locations = new SelectList(PopulateDropdowns.GetLocations(_context), "Value", "Text");
             return Page();
         }
 
         [BindProperty]
         public BookLibrary.Models.Book Book { get; set; } = default!;
+        public SelectList Authors { get; set; }
+        public SelectList Locations { get; set; }
+        public SelectList Subcategories { get; set; }
+        [BindProperty]
+        public int[] SelectedAuthors { get; set; }
+        [BindProperty] 
+        public int[] SelectedLocations { get; set; }
+        [BindProperty]
+        public int[] SelectedSubcategories { get; set; }
         
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
@@ -37,6 +49,16 @@ namespace BookLibrary.Pages.Book
             }
 
             _context.Books.Add(Book);
+            await _context.SaveChangesAsync();
+            var newBook = _context.Books.OrderBy(x => x.BookId).Last();
+            foreach(var i in SelectedAuthors)
+            {
+                _context.BookAuthors.Add(new BookAuthor { AuthorId = i, BookId = newBook.BookId });
+            }
+            foreach(var i in SelectedLocations)
+            {
+                _context.BookLocations.Add(new BookLocation { BookId = newBook.BookId, LocationId = i });
+            }
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

@@ -14,6 +14,9 @@ namespace BookLibrary.Data
         public DbSet<Author> Authors { get; set; }
         public DbSet<Book> Books { get; set; }
         public DbSet<BooksRead> BooksRead { get; set; }
+        public DbSet<BookAuthor> BookAuthors { get; set; }
+        public DbSet<BookLocation> BookLocations { get; set; }
+        //public DbSet<>
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
