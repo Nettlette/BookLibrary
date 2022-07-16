@@ -25,7 +25,7 @@ namespace BookLibrary.Pages.Author
         {
             if (_context.Authors != null)
             {
-                Author = await _context.Authors.ToListAsync();
+                Author = await _context.Authors.OrderBy(x => x.Name).ToListAsync();
             }
         }
     }

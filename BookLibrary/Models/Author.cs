@@ -12,6 +12,6 @@ namespace BookLibrary.Models
         [DisplayName("Date Died")]
         public DateTime? DateDied { get; set; }
         [NotMapped]
-        public List<Location> Locations { get; set; }
+        public List<Location>? Locations { get; set; }
     }
 }

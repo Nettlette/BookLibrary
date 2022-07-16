@@ -28,7 +28,10 @@ namespace BookLibrary.Models
         public string? Subcategories { get; set; }
         public Series? Series { get; set; }
         public int? SeriesId { get; set; }
+        [DisplayFormat(DataFormatString = "{0:N}")]
         public decimal? SeriesOrder { get; set; }
+        [NotMapped]
+        public string SeriesDisplay { get { return Series != null ? Series.Name + " (#" + String.Format("{0:#,0}", SeriesOrder) + ")" : ""; } }
     }
 
     public enum Category

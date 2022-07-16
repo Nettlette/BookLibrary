@@ -38,7 +38,7 @@
                 @Html.DisplayNameFor(model => model.Book[0].Category)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Book[0].SeriesId)
+                @Html.DisplayNameFor(model => model.Book[0].Series)
             </th>
             <th></th>
         </tr>
@@ -72,7 +72,7 @@
                 @Html.DisplayFor(modelItem => item.Category)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SeriesOrder)
+                @Html.DisplayFor(modelItem => item.SeriesDisplay)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.BookId">Edit</a> |

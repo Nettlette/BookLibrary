@@ -33,15 +33,15 @@
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
-                    @if (item.DateBorn.Equals("1/1/1900"))
+                    @if (item.DateBorn != null)
                     {
-                        @Html.DisplayFor(modelItem => item.DateBorn)
+                        @item.DateBorn.Value.ToString("M/d/yyyy")
                     }
                 </td>
                 <td>
-                    @if (item.DateDied.Equals("1/1/1900"))
+                    @if (item.DateDied != null)
                     {
-                        @Html.DisplayFor(modelItem => item.DateDied)
+                        @item.DateDied.Value.ToString("M/d/yyyy")
                     }
                 </td>
                 <td>

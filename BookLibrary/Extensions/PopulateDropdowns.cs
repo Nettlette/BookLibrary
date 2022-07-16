@@ -41,5 +41,15 @@ namespace BookLibrary.Extensions
         {
             return db.Locations.OrderBy(x => x.Name).Select(x => new SelectListItem { Text = x.Name, Value = x.LocationID.ToString(), Selected = false });
         }
+
+        public static IEnumerable<SelectListItem> GetSubcategories(ApplicationDbContext db)
+        {
+            return db.Subcategory.OrderBy(x => x.Name).Select(x => new SelectListItem { Text = x.Name, Value = x.SubcategoryId.ToString(), Selected = false });
+        }
+
+        public static IEnumerable<SelectListItem> GetSeries(ApplicationDbContext db)
+        {
+            return db.Series.OrderBy(x => x.Name).Select(x => new SelectListItem { Text = x.Name, Value = x.SeriesId.ToString(), Selected = false });
+        }
     }
 }

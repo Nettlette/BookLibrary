@@ -4,6 +4,7 @@ using BookLibrary.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookLibrary.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220716023749_BookSubcategory")]
+    partial class BookSubcategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -166,29 +168,6 @@ namespace BookLibrary.Migrations
                     b.ToTable("BooksRead");
                 });
 
-            modelBuilder.Entity("BookLibrary.Models.BookSubcategory", b =>
-                {
-                    b.Property<int>("BookSubcategoryId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookSubcategoryId"), 1L, 1);
-
-                    b.Property<int>("BookId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SubcategoryId")
-                        .HasColumnType("int");
-
-                    b.HasKey("BookSubcategoryId");
-
-                    b.HasIndex("BookId");
-
-                    b.HasIndex("SubcategoryId");
-
-                    b.ToTable("BookSubcategories");
-                });
-
             modelBuilder.Entity("BookLibrary.Models.Location", b =>
                 {
                     b.Property<int>("LocationID")
@@ -324,25 +303,6 @@ namespace BookLibrary.Migrations
                     b.Navigation("Book");
 
                     b.Navigation("Reader");
-                });
-
-            modelBuilder.Entity("BookLibrary.Models.BookSubcategory", b =>
-                {
-                    b.HasOne("BookLibrary.Models.Book", "Book")
-                        .WithMany()
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BookLibrary.Models.Subcategory", "Subcategory")
-                        .WithMany()
-                        .HasForeignKey("SubcategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Book");
-
-                    b.Navigation("Subcategory");
                 });
 #pragma warning restore 612, 618
         }
