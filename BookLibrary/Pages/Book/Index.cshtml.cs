@@ -26,6 +26,17 @@ namespace BookLibrary.Pages.Book
             if (_context.Books != null)
             {
                 Book = await _context.Books.ToListAsync();
+                foreach(var b in Book)
+                {
+                    var a = _context.BookAuthors.Where(x => x.BookId == b.BookId).Select(x => x.AuthorId);
+                    var authors = _context.Authors.Where(x => a.Contains(x.AuthorId)).Select(x => x.Name).ToList();
+                    b.Author = String.Join(", ", authors);
+                    var l = _context.BookLocations.Where(x => x.BookId == b.BookId).Select(x => x.LocationId);
+                    var locations = _context.Locations.Where(x => l.Contains(x.LocationID)).Select(x => x.Name).ToList();
+                    b.Locations = String.Join(", ", locations);
+                    //var subcategories = _context.BookLocations.Where(x => x.BookId == b.BookId).Select(x => x.LocationId);
+                    //b.Locations = _context.Locations.Where(x => locations.Contains(x.LocationID)).ToList();
+                }
             }
         }
     }

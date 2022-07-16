@@ -22,6 +22,7 @@ namespace BookLibrary.Pages.Book
 
         public IActionResult OnGet()
         {
+            this.Category = new SelectList(PopulateDropdowns.GetCategories(), "Value", "Text");
             Authors = new SelectList(PopulateDropdowns.GetAuthors(_context), "Value", "Text");
             Locations = new SelectList(PopulateDropdowns.GetLocations(_context), "Value", "Text");
             return Page();
@@ -38,6 +39,7 @@ namespace BookLibrary.Pages.Book
         public int[] SelectedLocations { get; set; }
         [BindProperty]
         public int[] SelectedSubcategories { get; set; }
+        public SelectList Category { get; set; }
         
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD

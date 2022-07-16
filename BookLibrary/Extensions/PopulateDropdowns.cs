@@ -16,17 +16,30 @@ namespace BookLibrary.Extensions
                                                     Value = o.ToString(),
                                                     Selected = false
                                                 };
-            return items;
+            return items.OrderBy(x => x.Text);
+        }
+
+        public static IEnumerable<SelectListItem> GetCategories()
+        {
+            IEnumerable<Category> original = Enum.GetValues(typeof(Category)).Cast<Category>();
+            IEnumerable<SelectListItem> items = from o in original
+                                                select new SelectListItem
+                                                {
+                                                    Text = o.ToString(),
+                                                    Value = o.ToString(),
+                                                    Selected = false
+                                                };
+            return items.OrderBy(x => x.Text);
         }
 
         public static IEnumerable<SelectListItem> GetAuthors(ApplicationDbContext db)
         {
-            return db.Authors.Select(x => new SelectListItem { Text = x.Name, Value = x.AuthorId.ToString(), Selected = false });
+            return db.Authors.OrderBy(x => x.Name).Select(x => new SelectListItem { Text = x.Name, Value = x.AuthorId.ToString(), Selected = false });
         }
 
         public static IEnumerable<SelectListItem> GetLocations(ApplicationDbContext db)
         {
-            return db.Locations.Select(x => new SelectListItem { Text = x.Name, Value = x.LocationID.ToString(), Selected = false });
+            return db.Locations.OrderBy(x => x.Name).Select(x => new SelectListItem { Text = x.Name, Value = x.LocationID.ToString(), Selected = false });
         }
     }
 }

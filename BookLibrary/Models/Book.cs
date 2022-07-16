@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using BookLibrary.Data;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BookLibrary.Models
@@ -10,10 +11,10 @@ namespace BookLibrary.Models
         public string Title { get; set; }
         public string? Subtitle { get; set; }
         [NotMapped]
-        public List<Author>? Author { get; set; }
+        public string? Author { get; set; }
         public DateTime Published { get; set; }
         [NotMapped] 
-        public List<Location>? Locations { get; set; }
+        public string? Locations { get; set; }
         public int? Pages { get; set; }
         public decimal? Hours { get; set; }
         public string? ISBN { get; set; }
@@ -24,7 +25,7 @@ namespace BookLibrary.Models
         public int PublishedDecade => Convert.ToInt32(Math.Floor((double)Published.Year / 10.0) * 10);
         public Category? Category { get; set; }
         [NotMapped] 
-        public List<Subcategory>? Subcategories { get; set; }
+        public string? Subcategories { get; set; }
         public Series? Series { get; set; }
         public int? SeriesId { get; set; }
         public decimal? SeriesOrder { get; set; }
