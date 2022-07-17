@@ -13,10 +13,12 @@ namespace BookLibrary.Data
         public DbSet<Location> Locations { get; set; }
         public DbSet<Author> Authors { get; set; }
         public DbSet<Book> Books { get; set; }
+        public DbSet<Subcategory> Subcategory { get; set; }
         public DbSet<BooksRead> BooksRead { get; set; }
         public DbSet<BookAuthor> BookAuthors { get; set; }
         public DbSet<BookLocation> BookLocations { get; set; }
         public DbSet<BookSubcategory> BookSubcategories { get; set; }
+        public DbSet<BookIndex> BookIndex { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -24,6 +26,14 @@ namespace BookLibrary.Data
             optionsBuilder.UseSqlServer(configuration.GetConnectionString("Primary"));
         }
 
-        public DbSet<BookLibrary.Models.Subcategory>? Subcategory { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<BookIndex>(
+                eb =>
+                {
+                    eb.HasNoKey();
+                    eb.ToView("BookIndex");
+                });
+        }
     }
 }

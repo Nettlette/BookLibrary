@@ -14,47 +14,47 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Book[0].Title)
+                @Html.DisplayNameFor(model => model.Books[0].Title)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Book[0].Author)
+                @Html.DisplayNameFor(model => model.Books[0].Authors)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Book[0].Published)
+                @Html.DisplayNameFor(model => model.Books[0].Published)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Book[0].Locations)
+                @Html.DisplayNameFor(model => model.Books[0].Locations)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Book[0].Subcategories)
+                @Html.DisplayNameFor(model => model.Books[0].Subcategories)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Book[0].Pages)
+                @Html.DisplayNameFor(model => model.Books[0].Pages)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Book[0].Hours)
+                @Html.DisplayNameFor(model => model.Books[0].Hours)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Book[0].Category)
+                @Html.DisplayNameFor(model => model.Books[0].Category)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Book[0].Series)
+                @Html.DisplayNameFor(model => model.Books[0].SeriesName)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Book) {
+@foreach (var item in Model.Books) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Title) <br />
                 @Html.DisplayFor(modelItem => item.Subtitle)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Author)
+                @Html.DisplayFor(modelItem => item.Authors)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PublishedYear)
+                @Html.DisplayFor(modelItem => item.Published)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Locations)

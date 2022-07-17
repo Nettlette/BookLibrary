@@ -19,25 +19,13 @@ namespace BookLibrary.Pages.Book
             _context = context;
         }
 
-        public List<BookLibrary.Models.Book> Book { get;set; } = default!;
+        public List<BookLibrary.Models.BookIndex> Books { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            if (_context.Books != null)
+            if (_context.BookIndex != null)
             {
-                Book = await _context.Books.Include(x => x.Series).ToListAsync();
-                foreach(var b in Book)
-                {
-                    var a = _context.BookAuthors.Where(x => x.BookId == b.BookId).Select(x => x.AuthorId);
-                    var authors = _context.Authors.Where(x => a.Contains(x.AuthorId)).Select(x => x.Name).ToList();
-                    b.Author = String.Join(", ", authors);
-                    var l = _context.BookLocations.Where(x => x.BookId == b.BookId).Select(x => x.LocationId);
-                    var locations = _context.Locations.Where(x => l.Contains(x.LocationID)).Select(x => x.Name).ToList();
-                    b.Locations = String.Join(", ", locations);
-                    var s = _context.BookSubcategories.Where(x => x.BookId == b.BookId).Select(x => x.SubcategoryId);
-                    var subcategories = _context.Subcategory.Where(x => s.Contains(x.SubcategoryId)).Select(x => x.Name).ToList();
-                    b.Subcategories = String.Join(", ", subcategories);
-                }
+                Books = await _context.BookIndex.OrderBy(x => x.Title).ToListAsync();
             }
         }
     }
