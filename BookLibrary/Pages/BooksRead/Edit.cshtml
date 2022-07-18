@@ -4,31 +4,49 @@
 @{
     ViewData["Title"] = "Edit";
 }
-
+<script src="~/js/jquery/dist/jquery.js"></script>
+<script src="~/bootstrap/dist/js/bootstrap.js"></script>
+<link herf="~/bootstrap/dist/css/bootstrap.css" />
+<script src="~/multiselect-dropdown.js"></script>
 <h1>Edit</h1>
 
 <h4>BooksRead</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form method="post">
+    <form method="post">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="BooksRead.BookId" class="control-label"></label>
+                <select asp-for="BooksRead.BookId" class="form-control" asp-items="@Model.Books" multiple multiselect-max-items="1" multiselect-search="true"></select>
+                <span asp-validation-for="BooksRead.BookId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="BooksRead.ReaderId" class="control-label"></label>
+                <select asp-for="BooksRead.ReaderId" class="form-control" asp-items="@Model.Readers" multiple multiselect-max-items="1" multiselect-search="true"></select>
+                <span asp-validation-for="BooksRead.ReaderId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-6">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="BooksRead.BooksReadId" />
             <div class="form-group">
                 <label asp-for="BooksRead.StartDate" class="control-label"></label>
-                <input asp-for="BooksRead.StartDate" class="form-control" />
+                <input asp-for="BooksRead.StartDate" type="date" class="form-control" />
                 <span asp-validation-for="BooksRead.StartDate" class="text-danger"></span>
             </div>
+        </div>
+        <div class="col-md-6">
             <div class="form-group">
                 <label asp-for="BooksRead.EndDate" class="control-label"></label>
-                <input asp-for="BooksRead.EndDate" class="form-control" />
+                <input asp-for="BooksRead.EndDate" type="date" class="form-control" />
                 <span asp-validation-for="BooksRead.EndDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary" />
             </div>
-        </form>
-    </div>
+        </div>
+    </form>
 </div>
 
 <div>

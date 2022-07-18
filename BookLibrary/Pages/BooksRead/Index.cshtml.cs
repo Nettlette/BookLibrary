@@ -25,7 +25,7 @@ namespace BookLibrary.Pages.BooksRead
         {
             if (_context.BooksRead != null)
             {
-                BooksRead = await _context.BooksRead.ToListAsync();
+                BooksRead = await _context.BooksRead.Include(x => x.Book).Include(x => x.Reader).ToListAsync();
             }
         }
     }

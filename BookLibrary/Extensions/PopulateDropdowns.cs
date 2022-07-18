@@ -37,6 +37,11 @@ namespace BookLibrary.Extensions
             return db.Authors.OrderBy(x => x.Name).Select(x => new SelectListItem { Text = x.Name, Value = x.AuthorId.ToString(), Selected = false });
         }
 
+        public static IEnumerable<SelectListItem> GetBooks(ApplicationDbContext db)
+        {
+            return db.Books.OrderBy(x => x.Title).Select(x => new SelectListItem { Text = x.Title, Value = x.BookId.ToString(), Selected = false });
+        }
+
         public static IEnumerable<SelectListItem> GetLocations(ApplicationDbContext db)
         {
             return db.Locations.OrderBy(x => x.Name).Select(x => new SelectListItem { Text = x.Name, Value = x.LocationID.ToString(), Selected = false });
@@ -50,6 +55,11 @@ namespace BookLibrary.Extensions
         public static IEnumerable<SelectListItem> GetSeries(ApplicationDbContext db)
         {
             return db.Series.OrderBy(x => x.Name).Select(x => new SelectListItem { Text = x.Name, Value = x.SeriesId.ToString(), Selected = false });
+        }
+
+        public static IEnumerable<SelectListItem> GetReaders(ApplicationDbContext db)
+        {
+            return db.Readers.OrderBy(x => x.Name).Select(x => new SelectListItem { Text = x.Name, Value = x.ReaderID.ToString(), Selected = false });
         }
     }
 }

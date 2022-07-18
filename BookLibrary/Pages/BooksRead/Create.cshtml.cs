@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using BookLibrary.Data;
 using BookLibrary.Models;
+using BookLibrary.Extensions;
 
 namespace BookLibrary.Pages.BooksRead
 {
@@ -21,12 +22,15 @@ namespace BookLibrary.Pages.BooksRead
 
         public IActionResult OnGet()
         {
+            Readers = new SelectList(PopulateDropdowns.GetReaders(_context), "Value", "Text");
+            Books = new SelectList(PopulateDropdowns.GetBooks(_context), "Value", "Text");
             return Page();
         }
 
         [BindProperty]
         public BookLibrary.Models.BooksRead BooksRead { get; set; } = default!;
-        
+        public SelectList Readers { get; set; }
+        public SelectList Books { get; set; }
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BookLibrary.Data;
 using BookLibrary.Models;
+using BookLibrary.Extensions;
 
 namespace BookLibrary.Pages.BooksRead
 {
@@ -22,6 +23,8 @@ namespace BookLibrary.Pages.BooksRead
 
         [BindProperty]
         public BookLibrary.Models.BooksRead BooksRead { get; set; } = default!;
+        public SelectList Readers { get; set; }
+        public SelectList Books { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -36,6 +39,8 @@ namespace BookLibrary.Pages.BooksRead
                 return NotFound();
             }
             BooksRead = booksread;
+            Readers = new SelectList(PopulateDropdowns.GetReaders(_context), "Value", "Text", BooksRead.ReaderId);
+            Books = new SelectList(PopulateDropdowns.GetBooks(_context), "Value", "Text", BooksRead.BookId);
             return Page();
         }
 

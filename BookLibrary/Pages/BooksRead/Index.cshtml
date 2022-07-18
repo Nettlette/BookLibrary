@@ -14,6 +14,12 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.BooksRead[0].Reader)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BooksRead[0].Book)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.BooksRead[0].StartDate)
             </th>
             <th>
@@ -26,10 +32,16 @@
 @foreach (var item in Model.BooksRead) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.StartDate)
+                @Html.DisplayFor(modelItem => item.Reader.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.EndDate)
+                @Html.DisplayFor(modelItem => item.Book.Title)
+            </td>
+            <td>
+                @String.Format("{0:M/d/yyyy}", item.StartDate)
+            </td>
+            <td>
+                @String.Format("{0:M/d/yyyy}", item.EndDate)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.BooksReadId">Edit</a> |
