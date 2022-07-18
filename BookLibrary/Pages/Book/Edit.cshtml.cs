@@ -47,12 +47,16 @@ namespace BookLibrary.Pages.Book
             {
                 return NotFound();
             }
-            Category = new SelectList(PopulateDropdowns.GetCategories(), "Value", "Text");
-            Authors = new SelectList(PopulateDropdowns.GetAuthors(_context), "Value", "Text");
-            Locations = new SelectList(PopulateDropdowns.GetLocations(_context), "Value", "Text");
-            Subcategories = new SelectList(PopulateDropdowns.GetSubcategories(_context), "Value", "Text");
-            Series = new SelectList(PopulateDropdowns.GetSeries(_context), "Value", "Text");
             Book = book;
+
+            SelectedAuthors = _context.BookAuthors.Where(x => x.BookId == id).Select(x => x.AuthorId).ToArray();
+            SelectedLocations = _context.BookLocations.Where(x => x.BookId == id).Select(x => x.LocationId).ToArray();
+            SelectedSubcategories = _context.BookSubcategories.Where(x => x.BookId == id).Select(x => x.SubcategoryId).ToArray();
+            Category = new SelectList(PopulateDropdowns.GetCategories(), "Value", "Text", Book.Category);
+            Authors = new SelectList(PopulateDropdowns.GetAuthors(_context), "Value", "Text", SelectedAuthors);
+            Locations = new SelectList(PopulateDropdowns.GetLocations(_context), "Value", "Text", SelectedLocations);
+            Subcategories = new SelectList(PopulateDropdowns.GetSubcategories(_context), "Value", "Text", SelectedSubcategories);
+            Series = new SelectList(PopulateDropdowns.GetSeries(_context), "Value", "Text", Book.SeriesId);
             return Page();
         }
 

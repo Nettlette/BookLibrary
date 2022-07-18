@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using BookLibrary.Data;
 using BookLibrary.Models;
+using BookLibrary.Extensions;
 
 namespace BookLibrary.Pages.Author
 {
@@ -21,12 +22,16 @@ namespace BookLibrary.Pages.Author
 
         public IActionResult OnGet()
         {
+            Locations = new SelectList(PopulateDropdowns.GetLocations(_context), "Value", "Text");
             return Page();
         }
 
         [BindProperty]
         public BookLibrary.Models.Author Author { get; set; } = default!;
-        
+        public SelectList Locations { get; set; }
+        [BindProperty]
+        public int[]? SelectedLocations { get; set; }
+
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
@@ -38,6 +43,11 @@ namespace BookLibrary.Pages.Author
 
             _context.Authors.Add(Author);
             await _context.SaveChangesAsync();
+            var newAuthor = _context.Authors.OrderBy(x => x.AuthorId).Last();
+            foreach (var i in SelectedLocations)
+            {
+                //_context.BookLocations.Add(new BookLocation { BookId = newBook.BookId, LocationId = i });
+            }
 
             return RedirectToPage("./Index");
         }

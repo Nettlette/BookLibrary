@@ -10,29 +10,36 @@
 <h4>Author</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form method="post">
+    <form method="post">
+        <div class="col-md-6">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Author.AuthorId" />
             <div class="form-group">
                 <label asp-for="Author.Name" class="control-label"></label>
                 <input asp-for="Author.Name" class="form-control" />
                 <span asp-validation-for="Author.Name" class="text-danger"></span>
             </div>
+        </div>
+        <div class="col-md-6">
             <div class="form-group">
                 <label asp-for="Author.DateBorn" class="control-label"></label>
-                <input type="date" asp-for="Author.DateBorn" class="form-control" />
+                <input asp-for="Author.DateBorn" class="form-control" />
                 <span asp-validation-for="Author.DateBorn" class="text-danger"></span>
             </div>
+        </div>
+        <div class="col-md-6">
             <div class="form-group">
                 <label asp-for="Author.DateDied" class="control-label"></label>
-                <input type="date" asp-for="Author.DateDied" class="form-control" />
+                <input asp-for="Author.DateDied" class="form-control" />
                 <span asp-validation-for="Author.DateDied" class="text-danger"></span>
             </div>
+        </div>
+        <div class="col-md-6">
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
-        </form>
-    </div>
+        </div>
+    </form>
 </div>
 
 <div>
