@@ -10,6 +10,22 @@
 <p>
     <a asp-page="Create">Create New</a>
 </p>
+
+<div class="row">
+    <form asp-action="Index" method="OnGetAsync">
+        <div class="col-md-6">
+            <label asp-for="SearchTitle" class="control-label"></label>
+            <input asp-for="SearchTitle" class="form-control" />
+        </div>
+        <div class="col-md-6">
+
+        </div>
+        <div class="col-md-6">
+            <input type="submit" value="Search" class="btn btn-default" />
+        </div>
+    </form>
+</div>
+
 <table class="table">
     <thead>
         <tr>
