@@ -15,6 +15,9 @@ namespace BookLibrary.Models
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         [NotMapped]
-        public TimeSpan TimeToFinish { get { return EndDate.Value - StartDate.Value; } }
+        public TimeSpan TimeToFinish { get {
+                if (EndDate != null && StartDate != null) return EndDate.Value - StartDate.Value;
+                else return new TimeSpan(0, 0, 0);
+            } }
     }
 }

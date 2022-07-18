@@ -19,7 +19,11 @@ namespace BookLibrary.Pages.Author
             _context = context;
         }
 
-      public BookLibrary.Models.Author Author { get; set; } = default!; 
+        public BookLibrary.Models.Author Author { get; set; } = default!;
+        public List<BookLibrary.Models.AuthorLocationsView> AuthorLocations { get; set; }
+        public List<BookLibrary.Models.BookLocationsByAuthorView> BookLocations { get; set; }
+        public List<BookLibrary.Models.BookDetailsByAuthorView> Books { get; set; }
+        public List<BookLibrary.Models.BookSubcategoriesByAuthorView> BookSubcategories { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -36,6 +40,10 @@ namespace BookLibrary.Pages.Author
             else 
             {
                 Author = author;
+                AuthorLocations = await _context.AuthorLocationsView.Where(x => x.AuthorId == id).ToListAsync();
+                BookLocations = await _context.BookLocationsByAuthorView.Where(x => x.AuthorId == id).ToListAsync();
+                Books = await _context.BookDetailsByAuthorView.Where(x => x.AuthorId == id).ToListAsync();
+                BookSubcategories = await _context.BookSubcategoriesByAuthorView.Where(x => x.AuthorId == id).ToListAsync();
             }
             return Page();
         }

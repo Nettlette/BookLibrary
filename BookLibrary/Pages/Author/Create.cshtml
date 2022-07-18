@@ -16,7 +16,7 @@
     <form method="post">
         <div class="col-md-6">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Author.AuthorId" />
+            @*<input type="hidden" asp-for="Author.AuthorId" />*@
             <div class="form-group">
                 <label asp-for="Author.Name" class="control-label"></label>
                 <input asp-for="Author.Name" class="form-control" />

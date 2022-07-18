@@ -1,4 +1,5 @@
 ﻿using BookLibrary.Data;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -6,6 +7,7 @@ namespace BookLibrary.Models
 {
     public class Book
     {
+        [ValidateNever]
         public int BookId { get; set; }
         [Required]
         public string Title { get; set; }

@@ -10,26 +10,92 @@
 <div>
     <h4>Author</h4>
     <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Author.Name)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Author.Name)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Author.DateBorn)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Author.DateBorn)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Author.DateDied)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Author.DateDied)
-        </dd>
-    </dl>
+    <div class="row">
+        <div class="col-md-3">
+            <dl>
+                <dt class="col">
+                    @Html.DisplayNameFor(model => model.Author.Name)
+                </dt>
+                <dd class="col">
+                    @Html.DisplayFor(model => model.Author.Name)
+                </dd>
+                <dt class="col">
+                    @Html.DisplayNameFor(model => model.Author.DateBorn)
+                </dt>
+                <dd class="col">
+                    @String.Format("{0:M/d/yyyy}", Model.Author.DateBorn)
+                </dd>
+                <dt class="col">
+                    @Html.DisplayNameFor(model => model.Author.DateDied)
+                </dt>
+                <dd class="col">
+                    @String.Format("{0:M/d/yyyy}", Model.Author.DateDied)
+                </dd>
+                <dt class="col">
+                    Locations
+                </dt>
+                <dd class="col">
+                    <div>
+                        <ul>
+                            @foreach (var l in Model.AuthorLocations)
+                            {
+                                <li>@Html.DisplayFor(model => l.Name)</li>
+                            }
+                        </ul>
+                    </div>
+                </dd>
+            </dl>
+        </div>
+        <div class="col-md-3">
+            <h2>Books</h2>
+            <ul>
+                @foreach (var b in Model.Books)
+                {
+                    <li>
+                        <span>@Html.DisplayFor(model => b.Title)</span><br />
+                        @if (b.SeriesId != null)
+                        {
+                            <span>@Html.DisplayFor(model => b.SeriesDisplay)</span><br />
+                        }
+                        @if (b.Published != null)
+                        {
+                            <span>Published @String.Format("{0:M/d/yyyy}", b.Published)</span><br />
+                        }
+                        @if (b.Category != null)
+                        {
+                            <span>@Html.DisplayFor(model => b.Category)</span><br />
+                        }
+                        @if (b.Subcategories != null)
+                        {
+                            <span>@Html.DisplayFor(model => b.Subcategories)</span><br />
+                        }
+                        @if (b.Locations != null)
+                        {
+                            <span>@Html.DisplayFor(model => b.Locations)</span>
+                        }
+                    </li>
+                }
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <h2>Subcategories</h2>
+            <ul>
+                @foreach (var s in Model.BookSubcategories)
+                {
+                    <li>@s.Name</li>
+                }
+            </ul>
+        </div>
+        <div class="col-md-2">
+            <h2>Locations</h2>
+            <ul>
+                @foreach (var l in Model.BookLocations)
+                {
+                    <li>@l.Name</li>
+                }
+            </ul>
+        </div>
+    </div>
 </div>
 <div>
     <a asp-page="./Edit" asp-route-id="@Model.Author?.AuthorId">Edit</a> |
