@@ -19,6 +19,7 @@ namespace BookLibrary.Data
         public DbSet<BookLocation> BookLocations { get; set; }
         public DbSet<BookSubcategory> BookSubcategories { get; set; }
         public DbSet<BookIndex> BookIndex { get; set; }
+        public DbSet<AuthorLocation> AuthorLocations { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

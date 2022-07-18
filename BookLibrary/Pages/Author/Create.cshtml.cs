@@ -46,7 +46,7 @@ namespace BookLibrary.Pages.Author
             var newAuthor = _context.Authors.OrderBy(x => x.AuthorId).Last();
             foreach (var i in SelectedLocations)
             {
-                //_context.BookLocations.Add(new BookLocation { BookId = newBook.BookId, LocationId = i });
+                _context.AuthorLocations.Add(new AuthorLocation { AuthorId = newAuthor.AuthorId, LocationId = i });
             }
 
             return RedirectToPage("./Index");

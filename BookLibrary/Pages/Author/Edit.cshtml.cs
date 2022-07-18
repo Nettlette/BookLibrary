@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BookLibrary.Data;
 using BookLibrary.Models;
+using BookLibrary.Extensions;
 
 namespace BookLibrary.Pages.Author
 {
@@ -22,6 +23,9 @@ namespace BookLibrary.Pages.Author
 
         [BindProperty]
         public BookLibrary.Models.Author Author { get; set; } = default!;
+        public SelectList Locations { get; set; }
+        [BindProperty]
+        public int[]? SelectedLocations { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -36,6 +40,8 @@ namespace BookLibrary.Pages.Author
                 return NotFound();
             }
             Author = author;
+            SelectedLocations = _context.AuthorLocations.Where(x => x.AuthorId == id).Select(x => x.LocationId).ToArray();
+            Locations = new SelectList(PopulateDropdowns.GetLocations(_context), "Value", "Text", SelectedLocations);
             return Page();
         }
 
@@ -52,6 +58,21 @@ namespace BookLibrary.Pages.Author
 
             try
             {
+                // Locations
+                if (SelectedLocations != null)
+                {
+                    var oldItems = _context.AuthorLocations.Where(x => x.AuthorId == Author.AuthorId).ToList();
+                    var newItems = SelectedLocations.Select(x => new AuthorLocation { AuthorId = Author.AuthorId, LocationId = x }).ToList();
+                    var sameItems = oldItems.Where(x => SelectedLocations.Contains(x.LocationId)).ToList();
+                    var removedItems = oldItems;
+                    removedItems.RemoveAll(x => sameItems.Contains(x));
+                    foreach (var a in sameItems)
+                    {
+                        newItems.Remove(newItems.First(x => x.LocationId == a.LocationId && x.AuthorId == a.AuthorId));
+                    }
+                    _context.AuthorLocations.AddRange(newItems);
+                    _context.AuthorLocations.RemoveRange(removedItems);
+                }
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
