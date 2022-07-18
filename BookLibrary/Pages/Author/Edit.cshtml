@@ -4,7 +4,10 @@
 @{
     ViewData["Title"] = "Edit";
 }
-
+<script src="~/js/jquery/dist/jquery.js"></script>
+<script src="~/bootstrap/dist/js/bootstrap.js"></script>
+<link herf="~/bootstrap/dist/css/bootstrap.css" />
+<script src="~/multiselect-dropdown.js"></script>
 <h1>Edit</h1>
 
 <h4>Author</h4>
@@ -30,14 +33,14 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label asp-for="Author.DateBorn" class="control-label"></label>
-                <input asp-for="Author.DateBorn" class="form-control" />
+                <input asp-for="Author.DateBorn" type="date" class="form-control" />
                 <span asp-validation-for="Author.DateBorn" class="text-danger"></span>
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group">
                 <label asp-for="Author.DateDied" class="control-label"></label>
-                <input asp-for="Author.DateDied" class="form-control" />
+                <input asp-for="Author.DateDied" type="date" class="form-control" />
                 <span asp-validation-for="Author.DateDied" class="text-danger"></span>
             </div>
         </div>
