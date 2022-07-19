@@ -14,48 +14,78 @@
     <a asp-page="Create">Create New</a>
 </p>
 
-<div class="row">
+
     <form asp-action="Index" method="OnGetAsync">
-        <div class="col-md-3">
-            <label asp-for="Title" class="control-label"></label>
-            <input asp-for="Title" class="form-control" />
+       <div class="row">
+           <div class="col-md-3">
+                <div class="form-group">
+                    <label asp-for="Title" class="control-label"></label>
+                    <input asp-for="Title" class="form-control" />
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label asp-for="Author" class="control-label"></label>
+                    <input asp-for="Author" class="form-control" />
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label asp-for="Locations" class="control-label"></label>
+                    <select asp-for="Locations" class="form-control" asp-items="@Model.LocationsList" multiple multiselect-search="true" multiselect-max-items="1"></select>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label asp-for="Category" class="control-label"></label>
+                    <select asp-for="Category" class="form-control" asp-items="@Model.CategoryList"></select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <b>Published</b>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label asp-for="PublishStartDate" class="control-label"></label>
+                    <input asp-for="PublishStartDate" type="date" class="form-control" />
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label asp-for="PublishEndDate" class="control-label"></label>
+                    <input asp-for="PublishEndDate" type="date" class="form-control" />
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label asp-for="Subcategory" class="control-label"></label>
+                    <select asp-for="Subcategory" class="form-control" asp-items="@Model.SubcategoriesList" multiple multiselect-search="true" multiselect-max-items="1"></select>
+                </div>
+            </div>
         </div>
         <div class="col-md-3">
-            <label asp-for="Author" class="control-label"></label>
-            <input asp-for="Author" class="form-control" />
-        </div>
-        <div class="col-md-12">
-            <h4>Published</h4>
-        </div>
-        <div class="col-md-3">
-            <label asp-for="PublishStartDate" class="control-label"></label>
-            <input asp-for="PublishStartDate" type="date" class="form-control" />
-        </div>
-        <div class="col-md-3">
-            <label asp-for="PublishEndDate" class="control-label"></label>
-            <input asp-for="PublishEndDate" type="date" class="form-control" />
-        </div>
-        <div class="col-md-3">
-            <label asp-for="Locations" class="control-label"></label>
-            <select asp-for="Locations" class="form-control" asp-items="@Model.LocationsList" multiple multiselect-search="true"></select>
-        </div>
-        <div class="col-md-3">
-            <label asp-for="Subcategories" class="control-label"></label>
-            <select asp-for="Subcategories" class="form-control" asp-items="@Model.SubcategoriesList" multiple multiselect-search="true"></select>
-        </div>
-        <div class="col-md-3">
-            <label asp-for="Category" class="control-label"></label>
-            <select asp-for="Category" class="form-control" asp-items="@Model.CategoryList"></select>
-        </div>
-        <div class="col-md-3">
-            <label asp-for="Series" class="control-label"></label>
-            <input asp-for="Series" class="form-control" />
+            <div class="form-group">
+                <label asp-for="Series" class="control-label"></label>
+                <input asp-for="Series" class="form-control" />
+            </div>
         </div>
         <div class="col-md-6">
-            <input type="submit" value="Search" class="btn btn-default" />
+            <div class="form-group">
+                <input type="submit" value="Search" class="btn btn-default" />
+            </div>
         </div>
+        @*<div class="col-md-12">
+        @if (@Model.PreviousPage != 0)
+        {
+            <input type="submit" value="@Model.PreviousPage" name="PreviousPage" class="btn btn-default"/>
+        }
+        <input type="submit" value="@Model.NextPage" name="NextPage" class="btn btn-default" />
+        </div>*@
     </form>
-</div>
 
 <table class="table">
     <thead>
@@ -91,42 +121,43 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Books) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title) <br />
-                @Html.DisplayFor(modelItem => item.Subtitle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Authors)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Published)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Locations)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Subcategories)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Pages)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Hours)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SeriesDisplay)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.BookId">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.BookId">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.BookId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Books)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title) <br />
+                    @Html.DisplayFor(modelItem => item.Subtitle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Authors)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Published)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Locations)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Subcategories)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pages)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Hours)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SeriesDisplay)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.BookId">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.BookId">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.BookId">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

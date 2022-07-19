@@ -34,9 +34,9 @@ namespace BookLibrary.Pages.Book
         [DisplayName("End Date")]
         public DateTime? PublishEndDate { get; set; }
         [BindProperty(SupportsGet = true)]
-        public string[] Locations { get; set; }
+        public string Locations { get; set; }
         [BindProperty(SupportsGet = true)]
-        public string[] Subcategories { get; set; }
+        public string Subcategory { get; set; }
         [BindProperty(SupportsGet = true)]
         public string? Series { get; set; }
         [BindProperty(SupportsGet = true)]
@@ -44,11 +44,18 @@ namespace BookLibrary.Pages.Book
         public SelectList LocationsList { get; set; }
         public SelectList SubcategoriesList { get; set; }
         public SelectList CategoryList { get; set; }
+
+        public int PageSize { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public int PageNumber { get; set; } = 1;
+        public int PreviousPage { get { return PageNumber - 1; } }
+        public int NextPage { get { return PageNumber + 1; } }
         
         public async Task OnGetAsync()
         {
+            PageSize = 25;
             LocationsList = new SelectList(PopulateDropdowns.GetLocations(_context), "Text", "Text", Locations);
-            SubcategoriesList = new SelectList(PopulateDropdowns.GetSubcategories(_context), "Text", "Text", Subcategories);
+            SubcategoriesList = new SelectList(PopulateDropdowns.GetSubcategories(_context), "Text", "Text", Subcategory);
             CategoryList = new SelectList(PopulateDropdowns.GetCategories(), "Value", "Text", CategoryList);
             if (_context.BookIndex != null)
             {
@@ -69,14 +76,14 @@ namespace BookLibrary.Pages.Book
                 {
                     BookSearch = BookSearch.Where(x => x.Published <= PublishEndDate);
                 }
-                foreach (var l in Locations)
+                if (!String.IsNullOrEmpty(Subcategory))
                 {
-                    BookSearch = BookSearch.Where(x => x.Locations.Contains(l) || x.Locations == null);
+                    BookSearch = BookSearch.Where(x => x.Subcategories.Contains(Subcategory) || x.Subcategories == null);
                 }
-                //if (!String.IsNullOrEmpty(SearchSubcategory))
-                //{
-                //    BookSearch = BookSearch.Where(x => x.Subcategories.Contains(SearchSubcategory) || x.Subcategories == null);
-                //}
+                if (!String.IsNullOrEmpty(Locations))
+                {
+                    BookSearch = BookSearch.Where(x => x.Locations.Contains(Locations) || x.Locations == null);
+                }
                 if (!String.IsNullOrEmpty(Series))
                 {
                     BookSearch = BookSearch.Where(x => x.SeriesDisplay.Contains(Series) || x.SeriesDisplay == null);
@@ -85,7 +92,7 @@ namespace BookLibrary.Pages.Book
                 {
                     BookSearch = BookSearch.Where(x => x.Category == Category || x.Category == null);
                 }
-                Books = await BookSearch.ToListAsync();
+                Books = await BookSearch.OrderBy(x => x.Title).Skip((PageNumber - 1) * PageSize).Take(PageSize).ToListAsync();
             }
         }
     }
