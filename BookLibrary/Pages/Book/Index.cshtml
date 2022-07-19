@@ -4,7 +4,10 @@
 @{
     ViewData["Title"] = "Index";
 }
-
+<script src="~/js/jquery/dist/jquery.js"></script>
+<script src="~/bootstrap/dist/js/bootstrap.js"></script>
+<link herf="~/bootstrap/dist/css/bootstrap.css" />
+<script src="~/multiselect-dropdown.js"></script>
 <h1>Index</h1>
 
 <p>
@@ -13,13 +16,40 @@
 
 <div class="row">
     <form asp-action="Index" method="OnGetAsync">
-        <div class="col-md-6">
-            <label asp-for="SearchTitle" class="control-label"></label>
-            <input asp-for="SearchTitle" class="form-control" />
+        <div class="col-md-3">
+            <label asp-for="Title" class="control-label"></label>
+            <input asp-for="Title" class="form-control" />
         </div>
-        <div class="col-md-6">
-            <label asp-for="SearchAuthor" class="control-label"></label>
-            <input asp-for="SearchAuthor" class="form-control" />
+        <div class="col-md-3">
+            <label asp-for="Author" class="control-label"></label>
+            <input asp-for="Author" class="form-control" />
+        </div>
+        <div class="col-md-12">
+            <h4>Published</h4>
+        </div>
+        <div class="col-md-3">
+            <label asp-for="PublishStartDate" class="control-label"></label>
+            <input asp-for="PublishStartDate" type="date" class="form-control" />
+        </div>
+        <div class="col-md-3">
+            <label asp-for="PublishEndDate" class="control-label"></label>
+            <input asp-for="PublishEndDate" type="date" class="form-control" />
+        </div>
+        <div class="col-md-3">
+            <label asp-for="Locations" class="control-label"></label>
+            <select asp-for="Locations" class="form-control" asp-items="@Model.LocationsList" multiple multiselect-search="true"></select>
+        </div>
+        <div class="col-md-3">
+            <label asp-for="Subcategories" class="control-label"></label>
+            <select asp-for="Subcategories" class="form-control" asp-items="@Model.SubcategoriesList" multiple multiselect-search="true"></select>
+        </div>
+        <div class="col-md-3">
+            <label asp-for="Category" class="control-label"></label>
+            <select asp-for="Category" class="form-control" asp-items="@Model.CategoryList"></select>
+        </div>
+        <div class="col-md-3">
+            <label asp-for="Series" class="control-label"></label>
+            <input asp-for="Series" class="form-control" />
         </div>
         <div class="col-md-6">
             <input type="submit" value="Search" class="btn btn-default" />

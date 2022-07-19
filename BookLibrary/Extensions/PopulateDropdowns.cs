@@ -22,14 +22,15 @@ namespace BookLibrary.Extensions
         public static IEnumerable<SelectListItem> GetCategories()
         {
             IEnumerable<Category> original = Enum.GetValues(typeof(Category)).Cast<Category>();
-            IEnumerable<SelectListItem> items = from o in original
-                                                select new SelectListItem
-                                                {
-                                                    Text = o.ToString(),
-                                                    Value = o.ToString(),
-                                                    Selected = false
-                                                };
-            return items.OrderBy(x => x.Text);
+            List<SelectListItem> items = (from o in original
+                                        select new SelectListItem
+                                        {
+                                            Text = o.ToString(),
+                                            Value = o.ToString(),
+                                            Selected = false
+                                        }).ToList();
+            items.Add(new SelectListItem { Text = "Select a Category...", Value = "", Selected = false });
+            return items.OrderBy(x => x.Value);
         }
 
         public static IEnumerable<SelectListItem> GetAuthors(ApplicationDbContext db)
