@@ -19,7 +19,9 @@ namespace BookLibrary.Pages.Subcategory
             _context = context;
         }
 
-      public BookLibrary.Models.Subcategory Subcategory { get; set; } = default!; 
+        public BookLibrary.Models.Subcategory Subcategory { get; set; } = default!; 
+        public List<BookLibrary.Models.SubcategoryBookDetailView> Books { get; set; }
+        public List<BookLibrary.Models.SubcategoryAuthorDetailView> Authors { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -36,6 +38,8 @@ namespace BookLibrary.Pages.Subcategory
             else 
             {
                 Subcategory = subcategory;
+                Books = await _context.SubcategoryBookDetailView.Where(x => x.SubcategoryId == id).OrderBy(x => x.Title).ToListAsync();
+                Authors = await _context.SubcategoryAuthorDetailView.Where(x => x.SubcategoryId == id).OrderBy(x => x.AuthorName).ToListAsync();
             }
             return Page();
         }

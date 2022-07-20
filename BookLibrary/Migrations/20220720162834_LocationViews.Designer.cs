@@ -4,6 +4,7 @@ using BookLibrary.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookLibrary.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220720162834_LocationViews")]
+    partial class LocationViews
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -422,7 +424,7 @@ namespace BookLibrary.Migrations
                     b.Property<string>("Subtitle")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Title")
+                    b.Property<string>("Titile")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -478,60 +480,6 @@ namespace BookLibrary.Migrations
                     b.HasKey("SubcategoryId");
 
                     b.ToTable("Subcategory");
-                });
-
-            modelBuilder.Entity("BookLibrary.Models.SubcategoryAuthorDetailView", b =>
-                {
-                    b.Property<int>("AuthorId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("AuthorName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("SubcategoryId")
-                        .HasColumnType("int");
-
-                    b.ToView("SubcategoryAuthorDetailView");
-                });
-
-            modelBuilder.Entity("BookLibrary.Models.SubcategoryBookDetailView", b =>
-                {
-                    b.Property<string>("Authors")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("Category")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Published")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("SeriesName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal?>("SeriesOrder")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("SubcategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Subtitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.ToView("SubcategoryBookDetailView");
                 });
 
             modelBuilder.Entity("BookLibrary.Models.AuthorLocation", b =>

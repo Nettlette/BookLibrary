@@ -24,6 +24,10 @@ namespace BookLibrary.Data
         public DbSet<BookDetailsByAuthorView> BookDetailsByAuthorView { get; set; }
         public DbSet<BookLocationsByAuthorView> BookLocationsByAuthorView { get; set; }
         public DbSet<BookSubcategoriesByAuthorView> BookSubcategoriesByAuthorView { get; set; }
+        public DbSet<LocationBookDetailView> LocationBookDetailView { get; set; }
+        public DbSet<LocationAuthorDetailView> LocationAuthorDetailView { get; set; }
+        public DbSet<SubcategoryBookDetailView> SubcategoryBookDetailView { get; set; }
+        public DbSet<SubcategoryAuthorDetailView> SubcategoryAuthorDetailView { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -62,6 +66,30 @@ namespace BookLibrary.Data
                 {
                     eb.HasNoKey();
                     eb.ToView("BookSubcategoriesByAuthorView");
+                });
+            modelBuilder.Entity<LocationBookDetailView>(
+                eb =>
+                {
+                    eb.HasNoKey();
+                    eb.ToView("LocationBookDetailView");
+                });
+            modelBuilder.Entity<LocationAuthorDetailView>(
+                eb =>
+                {
+                    eb.HasNoKey();
+                    eb.ToView("LocationAuthorDetailView");
+                });
+            modelBuilder.Entity<SubcategoryBookDetailView>(
+                eb =>
+                {
+                    eb.HasNoKey();
+                    eb.ToView("SubcategoryBookDetailView");
+                });
+            modelBuilder.Entity<SubcategoryAuthorDetailView>(
+                eb =>
+                {
+                    eb.HasNoKey();
+                    eb.ToView("SubcategoryAuthorDetailView");
                 });
         }
     }

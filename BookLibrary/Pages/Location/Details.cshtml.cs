@@ -19,7 +19,9 @@ namespace BookLibrary.Pages.Location
             _context = context;
         }
 
-      public BookLibrary.Models.Location Location { get; set; } = default!; 
+        public BookLibrary.Models.Location Location { get; set; } = default!;
+        public List<BookLibrary.Models.LocationBookDetailView> Books { get; set; }
+        public List<BookLibrary.Models.LocationAuthorDetailView> Authors { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -36,6 +38,8 @@ namespace BookLibrary.Pages.Location
             else 
             {
                 Location = location;
+                Books = await _context.LocationBookDetailView.Where(x => x.LocationId == id).OrderBy(x => x.Title).ToListAsync();
+                Authors = await _context.LocationAuthorDetailView.Where(x => x.LocationId == id).OrderBy(x => x.AuthorName).ToListAsync();
             }
             return Page();
         }

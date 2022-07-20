@@ -86,7 +86,7 @@ namespace BookLibrary.Pages.Book
                 }
                 if (!String.IsNullOrEmpty(Series))
                 {
-                    BookSearch = BookSearch.Where(x => x.SeriesDisplay.Contains(Series) || x.SeriesDisplay == null);
+                    BookSearch = BookSearch.Where(x => x.SeriesName.Contains(Series) || x.SeriesName == null);
                 }
                 if (Category != null)
                 {

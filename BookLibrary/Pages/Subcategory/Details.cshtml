@@ -2,22 +2,58 @@
 @model BookLibrary.Pages.Subcategory.DetailsModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Subcategory Details";
 }
-
-<h1>Details</h1>
-
 <div>
-    <h4>Subcategory</h4>
+    <h1>Subcategory</h1>
     <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Subcategory.Name)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Subcategory.Name)
-        </dd>
-    </dl>
+    <div class="row">
+        <div class="col-md-3">
+            <dl>
+                <dt class="col">
+                    @Html.DisplayNameFor(model => model.Subcategory.Name)
+                </dt>
+                <dd class="col">
+                    @Html.DisplayFor(model => model.Subcategory.Name)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-md-3">
+            <h2>Books</h2>
+            <ul>
+                @foreach (var b in Model.Books)
+                {
+                    <li>
+                        <span>@Html.DisplayFor(model => b.Title)</span><br />
+                        @if (b.SeriesName != null)
+                        {
+                            <span>@Html.DisplayFor(model => b.SeriesDisplay)</span><br />
+                        }
+                        @if (b.Published != null)
+                        {
+                            <span>Published @String.Format("{0:M/d/yyyy}", b.Published)</span><br />
+                        }
+                        @if (b.Category != null)
+                        {
+                            <span>@Html.DisplayFor(model => b.Category)</span><br />
+                        }
+                    </li>
+                }
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <h2>Authors</h2>
+            <ul>
+                @foreach (var a in Model.Authors)
+                {
+                    <li>
+                        @Html.DisplayFor(model => a.AuthorName)
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+    
 </div>
 <div>
     <a asp-page="./Edit" asp-route-id="@Model.Subcategory?.SubcategoryId">Edit</a> |

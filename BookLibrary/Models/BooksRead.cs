@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BookLibrary.Models
@@ -12,7 +13,9 @@ namespace BookLibrary.Models
         [ValidateNever]
         public Reader Reader { get; set; }
         public int ReaderId { get; set; }
+        [DisplayName("Start Date")]
         public DateTime? StartDate { get; set; }
+        [DisplayName("Start Date")]
         public DateTime? EndDate { get; set; }
         [NotMapped]
         public TimeSpan TimeToFinish { get {

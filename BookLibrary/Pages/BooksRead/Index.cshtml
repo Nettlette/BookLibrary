@@ -2,14 +2,89 @@
 @model BookLibrary.Pages.BooksRead.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Read a Book";
 }
-
-<h1>Index</h1>
+<script src="~/js/jquery/dist/jquery.js"></script>
+<script src="~/bootstrap/dist/js/bootstrap.js"></script>
+<link herf="~/bootstrap/dist/css/bootstrap.css" />
+<script src="~/multiselect-dropdown.js"></script>
+<h1>Read a Book</h1>
 
 <p>
     <a asp-page="Create">Create New</a>
 </p>
+
+<form asp-action="Index" method="OnGetAsync">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label asp-for="Reader" class="control-label"></label>
+                <input asp-for="Reader" class="form-control" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <b>Start Date</b>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label asp-for="StartDateFrom" class="control-label"></label>
+                <input asp-for="StartDateFrom" type="date" class="form-control" />
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label asp-for="StartDateTo" class="control-label"></label>
+                <input asp-for="StartDateTo" type="date" class="form-control" />
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-check">
+                <input asp-for="NoStartDate" type="checkbox" class="form-check-input" />
+                <label asp-for="NoStartDate" class="form-check-label"></label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <b>End Date</b>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label asp-for="EndDateFrom" class="control-label"></label>
+                <input asp-for="EndDateFrom" type="date" class="form-control" />
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label asp-for="EndDateTo" class="control-label"></label>
+                <input asp-for="EndDateTo" type="date" class="form-control" />
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-check">
+                <input asp-for="NoEndDate" type="checkbox" class="form-check-input" />
+                <label asp-for="NoEndDate" class="form-check-label"></label>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <input type="submit" value="Search" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
 <table class="table">
     <thead>
         <tr>
@@ -45,7 +120,7 @@
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.BooksReadId">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.BooksReadId">Details</a> |
+                <a asp-page="../Book/Edit" asp-route-id="@item.BookId">Edit Book</a> |
                 <a asp-page="./Delete" asp-route-id="@item.BooksReadId">Delete</a>
             </td>
         </tr>
