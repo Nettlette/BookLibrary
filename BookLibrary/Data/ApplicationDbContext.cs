@@ -31,7 +31,7 @@ namespace BookLibrary.Data
         public DbSet<SeriesAuthorView> SeriesAuthorView { get; set; }
         public DbSet<SeriesSubcategoryView> SeriesSubcategoryView { get; set; }
         public DbSet<SeriesBookView> SeriesBookView { get; set; }
-        public DbSet<ReaderAuthorsView> ReaderAuthorsView { get; set; }
+        public DbSet<ReaderAuthorView> ReaderAuthorView { get; set; }
         public DbSet<ReaderBooksView> ReaderBooksView { get; set; }
         public DbSet<ReaderLocationsView> ReaderLocationsView { get; set; }
         public DbSet<ReaderSubcategoryView> ReaderSubcategoryView { get; set; }
@@ -116,11 +116,11 @@ namespace BookLibrary.Data
                     eb.HasNoKey();
                     eb.ToView("SeriesBookView");
                 });
-            modelBuilder.Entity<ReaderAuthorsView>(
+            modelBuilder.Entity<ReaderAuthorView>(
                 eb =>
                 {
                     eb.HasNoKey();
-                    eb.ToView("ReaderAuthorsView");
+                    eb.ToView("ReaderAuthorView");
                 });
             modelBuilder.Entity<ReaderBooksView>(
                 eb =>
