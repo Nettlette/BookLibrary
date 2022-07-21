@@ -19,7 +19,10 @@ namespace BookLibrary.Pages.Series
             _context = context;
         }
 
-      public BookLibrary.Models.Series Series { get; set; } = default!; 
+        public BookLibrary.Models.Series Series { get; set; } = default!; 
+        public List<BookLibrary.Models.SeriesAuthorView> Authors { get; set; }
+        public List<BookLibrary.Models.SeriesBookView> Books { get; set; }
+        public List<BookLibrary.Models.SeriesSubcategoryView> Subcategories { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -36,6 +39,9 @@ namespace BookLibrary.Pages.Series
             else 
             {
                 Series = series;
+                Books = await _context.SeriesBookView.Where(x => x.SeriesId == id).OrderBy(x => x.SeriesOrder).ToListAsync();
+                Authors = await _context.SeriesAuthorView.Where(x => x.SeriesId == id).OrderBy(x => x.Name).ToListAsync();
+                Subcategories = await _context.SeriesSubcategoryView.Where(x => x.SeriesId == id).OrderBy(x => x.Name).ToListAsync();
             }
             return Page();
         }

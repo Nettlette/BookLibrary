@@ -28,6 +28,13 @@ namespace BookLibrary.Data
         public DbSet<LocationAuthorDetailView> LocationAuthorDetailView { get; set; }
         public DbSet<SubcategoryBookDetailView> SubcategoryBookDetailView { get; set; }
         public DbSet<SubcategoryAuthorDetailView> SubcategoryAuthorDetailView { get; set; }
+        public DbSet<SeriesAuthorView> SeriesAuthorView { get; set; }
+        public DbSet<SeriesSubcategoryView> SeriesSubcategoryView { get; set; }
+        public DbSet<SeriesBookView> SeriesBookView { get; set; }
+        public DbSet<ReaderAuthorsView> ReaderAuthorsView { get; set; }
+        public DbSet<ReaderBooksView> ReaderBooksView { get; set; }
+        public DbSet<ReaderLocationsView> ReaderLocationsView { get; set; }
+        public DbSet<ReaderSubcategoryView> ReaderSubcategoryView { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -90,6 +97,48 @@ namespace BookLibrary.Data
                 {
                     eb.HasNoKey();
                     eb.ToView("SubcategoryAuthorDetailView");
+                });
+            modelBuilder.Entity<SeriesAuthorView>(
+                eb =>
+                {
+                    eb.HasNoKey();
+                    eb.ToView("SeriesAuthorView");
+                });
+            modelBuilder.Entity<SeriesSubcategoryView>(
+                eb =>
+                {
+                    eb.HasNoKey();
+                    eb.ToView("SeriesSubcategoryView");
+                });
+            modelBuilder.Entity<SeriesBookView>(
+                eb =>
+                {
+                    eb.HasNoKey();
+                    eb.ToView("SeriesBookView");
+                });
+            modelBuilder.Entity<ReaderAuthorsView>(
+                eb =>
+                {
+                    eb.HasNoKey();
+                    eb.ToView("ReaderAuthorsView");
+                });
+            modelBuilder.Entity<ReaderBooksView>(
+                eb =>
+                {
+                    eb.HasNoKey();
+                    eb.ToView("ReaderBooksView");
+                });
+            modelBuilder.Entity<ReaderLocationsView>(
+                eb =>
+                {
+                    eb.HasNoKey();
+                    eb.ToView("ReaderLocationsView");
+                });
+            modelBuilder.Entity<ReaderSubcategoryView>(
+                eb =>
+                {
+                    eb.HasNoKey();
+                    eb.ToView("ReaderSubcategoryView");
                 });
         }
     }

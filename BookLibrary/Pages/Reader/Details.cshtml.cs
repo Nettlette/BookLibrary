@@ -19,7 +19,11 @@ namespace BookLibrary.Pages.Reader
             _context = context;
         }
 
-      public BookLibrary.Models.Reader Reader { get; set; } = default!; 
+        public BookLibrary.Models.Reader Reader { get; set; } = default!;
+        public List<BookLibrary.Models.ReaderLocationsView> Locations { get; set; }
+        public List<BookLibrary.Models.ReaderAuthorsView> Authors { get; set; }
+        public List<BookLibrary.Models.ReaderBooksView> Books { get; set; }
+        public List<BookLibrary.Models.ReaderSubcategoryView> Subcategories { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -36,6 +40,10 @@ namespace BookLibrary.Pages.Reader
             else 
             {
                 Reader = reader;
+                Locations = await _context.ReaderLocationsView.Where(x => x.ReaderId == id).OrderBy(x => x.Name).ToListAsync();
+                Authors = await _context.ReaderAuthorsView.Where(x => x.ReaderId == id).OrderBy(x => x.Name).ToListAsync();
+                Books = await _context.ReaderBooksView.Where(x => x.ReaderId == id).OrderBy(x => x.Title).ToListAsync();
+                Subcategories = await _context.ReaderSubcategoryView.Where(x => x.ReaderId == id).OrderBy(x => x.Name).ToListAsync();
             }
             return Page();
         }

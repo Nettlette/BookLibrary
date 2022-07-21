@@ -2,22 +2,65 @@
 @model BookLibrary.Pages.Reader.DetailsModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = Model.Reader.Name + " - Details";
 }
 
-<h1>Details</h1>
+<h1>@Model.Reader.Name</h1>
 
 <div>
-    <h4>Reader</h4>
     <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Reader.Name)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Reader.Name)
-        </dd>
-    </dl>
+    <div class="row">
+        <div class="col-md-3">
+            <h2>Books Read</h2>
+            <ul>
+                @foreach (var b in Model.Books)
+                {
+                    <li>
+                        <span>@Html.DisplayFor(model => b.Title)</span><br />
+                        @if (b.SeriesName != null)
+                        {
+                            <span>@Html.DisplayFor(model => b.SeriesDisplay)</span><br />
+                        }
+                        @if (b.Published != null)
+                        {
+                            <span>Published @String.Format("{0:M/d/yyyy}", b.Published)</span><br />
+                        }
+                        @if (b.Category != null)
+                        {
+                            <span>@Html.DisplayFor(model => b.Category)</span><br />
+                        }
+                    </li>
+                }
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <h2>Authors Read</h2>
+            <ul>
+                @foreach (var a in Model.Authors)
+                {
+                    <li>@a.Name</li>
+                }
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <h2>Locations Read</h2>
+            <ul>
+                @foreach (var a in Model.Locations)
+                {
+                    <li>@a.Name</li>
+                }
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <h2>Subcategories Read</h2>
+            <ul>
+                @foreach (var a in Model.Subcategories)
+                {
+                    <li>@a.Name</li>
+                }
+            </ul>
+        </div>
+    </div>
 </div>
 <div>
     <a asp-page="./Edit" asp-route-id="@Model.Reader?.ReaderID">Edit</a> |

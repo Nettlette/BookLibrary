@@ -4,6 +4,7 @@ using BookLibrary.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookLibrary.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220721001144_SeriesDetailViews")]
+    partial class SeriesDetailViews
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -446,60 +448,6 @@ namespace BookLibrary.Migrations
                     b.ToTable("Readers");
                 });
 
-            modelBuilder.Entity("BookLibrary.Models.ReaderAuthorsView", b =>
-                {
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ReaderId")
-                        .HasColumnType("int");
-
-                    b.ToView("ReaderAuthorsView");
-                });
-
-            modelBuilder.Entity("BookLibrary.Models.ReaderBooksView", b =>
-                {
-                    b.Property<int?>("Category")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("EndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("Published")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("ReaderId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SeriesName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal?>("SeriesOrder")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<DateTime?>("StartDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.ToView("ReaderBooksView");
-                });
-
-            modelBuilder.Entity("BookLibrary.Models.ReaderLocationsView", b =>
-                {
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ReaderId")
-                        .HasColumnType("int");
-
-                    b.ToView("ReaderLocationsView");
-                });
-
             modelBuilder.Entity("BookLibrary.Models.Series", b =>
                 {
                     b.Property<int>("SeriesId")
@@ -542,9 +490,6 @@ namespace BookLibrary.Migrations
 
                     b.Property<int>("SeriesId")
                         .HasColumnType("int");
-
-                    b.Property<decimal?>("SeriesOrder")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Title")
                         .IsRequired()
