@@ -47,7 +47,7 @@
             </dl>
         </div>
         <div class="col-md-3">
-            <h2>Books</h2>
+            <h2>Books (@Model.Books.Count)</h2>
             <ul>
                 @foreach (var b in Model.Books)
                 {
@@ -78,7 +78,7 @@
             </ul>
         </div>
         <div class="col-md-3">
-            <h2>Subcategories</h2>
+            <h2>Subcategories (@Model.BookSubcategories.Count)</h2>
             <ul>
                 @foreach (var s in Model.BookSubcategories)
                 {
@@ -87,7 +87,7 @@
             </ul>
         </div>
         <div class="col-md-2">
-            <h2>Locations</h2>
+            <h2>Locations (@Model.BookLocations.Count)</h2>
             <ul>
                 @foreach (var l in Model.BookLocations)
                 {

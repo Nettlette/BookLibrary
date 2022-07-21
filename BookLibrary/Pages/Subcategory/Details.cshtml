@@ -19,7 +19,7 @@
             </dl>
         </div>
         <div class="col-md-3">
-            <h2>Books</h2>
+            <h2>Books (@Model.Books.Count)</h2>
             <ul>
                 @foreach (var b in Model.Books)
                 {
@@ -42,7 +42,7 @@
             </ul>
         </div>
         <div class="col-md-3">
-            <h2>Authors</h2>
+            <h2>Authors (@Model.Authors.Count)</h2>
             <ul>
                 @foreach (var a in Model.Authors)
                 {

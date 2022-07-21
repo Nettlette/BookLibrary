@@ -35,6 +35,7 @@ namespace BookLibrary.Data
         public DbSet<ReaderBooksView> ReaderBooksView { get; set; }
         public DbSet<ReaderLocationsView> ReaderLocationsView { get; set; }
         public DbSet<ReaderSubcategoryView> ReaderSubcategoryView { get; set; }
+        public DbSet<ReaderStats> ReaderStats { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -140,6 +141,25 @@ namespace BookLibrary.Data
                     eb.HasNoKey();
                     eb.ToView("ReaderSubcategoryView");
                 });
+            modelBuilder.Entity<ReaderStats>(
+                eb =>
+                {
+                    eb.HasNoKey();
+                    eb.ToView("ReaderStats");
+                });
+        }
+
+        public IQueryable<ReaderStats> ReaderStats_Includes()
+        {
+            return ReaderStats
+                    .Include(x => x.FastHrBook)
+                    .Include(x => x.SlowHrBook)
+                    .Include(x => x.FastPgBook)
+                    .Include(x => x.SlowPgBook)
+                    .Include(x => x.LongBook)
+                    .Include(x => x.ShortBook)
+                    .Include(x => x.OldBook)
+                    .Include(x => x.NewBook);
         }
     }
 }
