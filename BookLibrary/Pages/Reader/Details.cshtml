@@ -11,6 +11,164 @@
     <hr />
     <div class="row">
         <div class="col-md-3">
+            @*Averages*@
+            <dl>
+                <dt class="col">@Html.DisplayNameFor(model => model.Stats.TotalAvg)</dt>
+                <dd class="col">@Html.DisplayFor(model => model.Stats.TotalAvg)</dd>
+
+                <dt class="col">@Html.DisplayNameFor(model => model.Stats.FictionAvg)</dt>
+                <dd class="col">@Html.DisplayFor(model => model.Stats.FictionAvg)</dd>
+
+                <dt class="col">@Html.DisplayNameFor(model => model.Stats.NonFictionAvg)</dt>
+                <dd class="col">@Html.DisplayFor(model => model.Stats.NonFictionAvg)</dd>
+            </dl>
+        </div>
+        <div class="col-md-3">
+            @*Totals*@
+            <dl>
+                <dt class="col">@Html.DisplayNameFor(model => model.Stats.TotalCount)</dt>
+                <dd class="col">@Html.DisplayFor(model => model.Stats.TotalCount)</dd>
+
+                <dt class="col">@Html.DisplayNameFor(model => model.Stats.FictionCount)</dt>
+                <dd class="col">@Html.DisplayFor(model => model.Stats.FictionCount)</dd>
+
+                <dt class="col">@Html.DisplayNameFor(model => model.Stats.NonfictionCount)</dt>
+                <dd class="col">@Html.DisplayFor(model => model.Stats.NonfictionCount)</dd>
+            </dl>
+        </div>
+        <div class="col-md-3">
+            @*Pages*@
+            <dl>
+                <dt class="col">@Html.DisplayNameFor(model => model.Stats.TotalPg)</dt>
+                <dd class="col">@Html.DisplayFor(model => model.Stats.TotalPg)</dd>
+
+                <dt class="col">@Html.DisplayNameFor(model => model.Stats.FictionPg)</dt>
+                <dd class="col">@Html.DisplayFor(model => model.Stats.FictionPg)</dd>
+
+                <dt class="col">@Html.DisplayNameFor(model => model.Stats.NonfictionPg)</dt>
+                <dd class="col">@Html.DisplayFor(model => model.Stats.NonfictionPg)</dd>
+            </dl>
+        </div>
+        <div class="col-md-3">
+            @*Hours*@
+            <dl>
+                <dt class="col">@Html.DisplayNameFor(model => model.Stats.TotalHr)</dt>
+                <dd class="col">@Html.DisplayFor(model => model.Stats.TotalHr)</dd>
+
+                <dt class="col">@Html.DisplayNameFor(model => model.Stats.FictionHr)</dt>
+                <dd class="col">@Html.DisplayFor(model => model.Stats.FictionHr)</dd>
+
+                <dt class="col">@Html.DisplayNameFor(model => model.Stats.NonfictionHr)</dt>
+                <dd class="col">@Html.DisplayFor(model => model.Stats.NonfictionHr)</dd>
+            </dl>
+        </div>
+        <div class="col-md-3">
+            <b>Fastest by Page</b>
+            <dl>
+                <dt class="col">@Html.DisplayNameFor(model => model.Stats.FastPgBook.Title)</dt>
+                <dd class="col">@Html.DisplayFor(model => model.Stats.FastPgBook.Title)</dd>
+@*
+                <dt class="col">@Html.DisplayNameFor(model => model.Stats.FastPgBook.Author)</dt>
+                <dd class="col">@Html.DisplayFor(model => model.Stats.FastPgBook.Author)</dd>*@
+
+                <dt class="col">@Html.DisplayNameFor(model => model.Stats.FastPgTimeToFinish)</dt>
+                <dd class="col">@Html.DisplayFor(model => model.Stats.FastPgTimeToFinish)</dd>
+
+                <dt class="col">@Html.DisplayNameFor(model => model.Stats.FastPgSpeedPg)</dt>
+                <dd class="col">@Html.DisplayFor(model => model.Stats.FastPgSpeedPg)</dd>
+            </dl>
+        </div>
+        <div class="col-md-3">
+            <b>Fastest by Hour</b>
+            <dl>
+                <dt class="col">@Html.DisplayNameFor(model => model.Stats.FastHrBook.Title)</dt>
+                <dd class="col">@Html.DisplayFor(model => model.Stats.FastHrBook.Title)</dd>
+@*
+                <dt class="col">@Html.DisplayNameFor(model => model.Stats.FastHrBook.Author)</dt>
+                <dd class="col">@Html.DisplayFor(model => model.Stats.FastHrBook.Author)</dd>*@
+
+                <dt class="col">@Html.DisplayNameFor(model => model.Stats.FastHrTimeToFinish)</dt>
+                <dd class="col">@Html.DisplayFor(model => model.Stats.FastHrTimeToFinish)</dd>
+
+                <dt class="col">@Html.DisplayNameFor(model => model.Stats.FastHrSpeedHr)</dt>
+                <dd class="col">@Html.DisplayFor(model => model.Stats.FastHrSpeedHr)</dd>
+            </dl>
+        </div>
+        <div class="col-md-3">
+            <b>Slowest by Page</b>
+            <dl>
+                <dt class="col">@Html.DisplayNameFor(model => model.Stats.SlowPgBook.Title)</dt>
+                <dd class="col">@Html.DisplayFor(model => model.Stats.SlowPgBook.Title)</dd>
+@*
+                <dt class="col">@Html.DisplayNameFor(model => model.Stats.SlowPgBook.Author)</dt>
+                <dd class="col">@Html.DisplayFor(model => model.Stats.SlowPgBook.Author)</dd>*@
+
+                <dt class="col">@Html.DisplayNameFor(model => model.Stats.SlowPgTimeToFinish)</dt>
+                <dd class="col">@Html.DisplayFor(model => model.Stats.SlowPgTimeToFinish)</dd>
+
+                <dt class="col">@Html.DisplayNameFor(model => model.Stats.SlowPgSpeedPg)</dt>
+                <dd class="col">@Html.DisplayFor(model => model.Stats.SlowPgSpeedPg)</dd>
+            </dl>
+        </div>
+        <div class="col-md-3">
+            <b>Slowest by Hour</b>
+            <dl>
+                <dt class="col">@Html.DisplayNameFor(model => model.Stats.SlowHrBook.Title)</dt>
+                <dd class="col">@Html.DisplayFor(model => model.Stats.SlowHrBook.Title)</dd>
+@*
+                <dt class="col">@Html.DisplayNameFor(model => model.Stats.SlowHrBook.Author)</dt>
+                <dd class="col">@Html.DisplayFor(model => model.Stats.SlowHrBook.Author)</dd>*@
+
+                <dt class="col">@Html.DisplayNameFor(model => model.Stats.SlowHrTimeToFinish)</dt>
+                <dd class="col">@Html.DisplayFor(model => model.Stats.SlowHrTimeToFinish)</dd>
+
+                <dt class="col">@Html.DisplayNameFor(model => model.Stats.SlowHrSpeedHr)</dt>
+                <dd class="col">@Html.DisplayFor(model => model.Stats.SlowHrSpeedHr)</dd>
+            </dl>
+        </div>
+        <div class="col-md-3">
+            <b>Oldest</b>
+            <dl>
+                <dt class="col">@Html.DisplayNameFor(model => model.Stats.OldBook.Title)</dt>
+                <dd class="col">@Html.DisplayFor(model => model.Stats.OldBook.Title)</dd>
+@*
+                <dt class="col">@Html.DisplayNameFor(model => model.Stats.OldBook.Author)</dt>
+                <dd class="col">@Html.DisplayFor(model => model.Stats.OldBook.Author)</dd>*@
+            </dl>
+        </div>
+        <div class="col-md-3">
+            <b>Newest</b>
+            <dl>
+                <dt class="col">@Html.DisplayNameFor(model => model.Stats.NewBook.Title)</dt>
+                <dd class="col">@Html.DisplayFor(model => model.Stats.NewBook.Title)</dd>
+@*
+                <dt class="col">@Html.DisplayNameFor(model => model.Stats.NewBook.Author)</dt>
+                <dd class="col">@Html.DisplayFor(model => model.Stats.NewBook.Author)</dd>*@
+            </dl>
+        </div>
+        <div class="col-md-3">
+            <b>Longest</b>
+            <dl>
+                <dt class="col">@Html.DisplayNameFor(model => model.Stats.LongBook.Title)</dt>
+                <dd class="col">@Html.DisplayFor(model => model.Stats.LongBook.Title)</dd>
+
+                @*<dt class="col">@Html.DisplayNameFor(model => model.Stats.LongBook.Author)</dt>
+                <dd class="col">@Html.DisplayFor(model => model.Stats.LongBook.Author)</dd>*@
+            </dl>
+        </div>
+        <div class="col-md-3">
+            <b>Shortest</b>
+            <dl>
+                <dt class="col">@Html.DisplayNameFor(model => model.Stats.ShortBook.Title)</dt>
+                <dd class="col">@Html.DisplayFor(model => model.Stats.ShortBook.Title)</dd>
+@*
+                <dt class="col">@Html.DisplayNameFor(model => model.Stats.ShortBook.Author)</dt>
+                <dd class="col">@Html.DisplayFor(model => model.Stats.ShortBook.Author)</dd>*@
+            </dl>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
             <h2>Books Read</h2>
             <ul>
                 @foreach (var b in Model.Books)
@@ -34,7 +192,7 @@
             </ul>
         </div>
         <div class="col-md-3">
-            <h2>Authors Read</h2>
+            <h2>Authors Read (@Model.Authors.Count)</h2>
             <ul>
                 @foreach (var a in Model.Authors)
                 {
@@ -43,7 +201,7 @@
             </ul>
         </div>
         <div class="col-md-3">
-            <h2>Locations Read</h2>
+            <h2>Locations Read(@Model.Locations.Count)</h2>
             <ul>
                 @foreach (var a in Model.Locations)
                 {
@@ -52,7 +210,7 @@
             </ul>
         </div>
         <div class="col-md-3">
-            <h2>Subcategories Read</h2>
+            <h2>Subcategories Read (@Model.Subcategories.Count)</h2>
             <ul>
                 @foreach (var a in Model.Subcategories)
                 {

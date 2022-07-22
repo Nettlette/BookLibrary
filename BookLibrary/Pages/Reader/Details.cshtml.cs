@@ -24,6 +24,7 @@ namespace BookLibrary.Pages.Reader
         public List<BookLibrary.Models.ReaderAuthorView> Authors { get; set; }
         public List<BookLibrary.Models.ReaderBooksView> Books { get; set; }
         public List<BookLibrary.Models.ReaderSubcategoryView> Subcategories { get; set; }
+        public BookLibrary.Models.ReaderStats Stats { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -44,6 +45,7 @@ namespace BookLibrary.Pages.Reader
                 Authors = await _context.ReaderAuthorView.Where(x => x.ReaderId == id).OrderBy(x => x.Name).ToListAsync();
                 Books = await _context.ReaderBooksView.Where(x => x.ReaderId == id).OrderBy(x => x.Title).ToListAsync();
                 Subcategories = await _context.ReaderSubcategoryView.Where(x => x.ReaderId == id).OrderBy(x => x.Name).ToListAsync();
+                Stats = await _context.ReaderStats_Includes().Where(x => x.ReaderId == id).FirstAsync();
             }
             return Page();
         }
