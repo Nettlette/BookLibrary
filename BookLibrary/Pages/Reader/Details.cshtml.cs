@@ -45,7 +45,7 @@ namespace BookLibrary.Pages.Reader
                 Authors = await _context.ReaderAuthorView.Where(x => x.ReaderId == id).OrderBy(x => x.Name).ToListAsync();
                 Books = await _context.ReaderBooksView.Where(x => x.ReaderId == id).OrderBy(x => x.Title).ToListAsync();
                 Subcategories = await _context.ReaderSubcategoryView.Where(x => x.ReaderId == id).OrderBy(x => x.Name).ToListAsync();
-                Stats = await _context.ReaderStats_Includes().Where(x => x.ReaderId == id).FirstAsync();
+                Stats = await _context.ReaderStats_Includes().Where(x => x.ReaderId == id).FirstOrDefaultAsync();
             }
             return Page();
         }

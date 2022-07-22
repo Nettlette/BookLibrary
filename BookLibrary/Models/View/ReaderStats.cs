@@ -38,17 +38,17 @@ namespace BookLibrary.Models
         public int FastPgBookId { get; set; }
         public Book FastPgBook { get; set; }
         [DisplayName("Time To Finish")]
-        public decimal FastPgTimeToFinish { get; set; }
+        public int FastPgTimeToFinish { get; set; }
         [DisplayName("Pages/Day Speed")]
         public decimal FastPgSpeedPg { get; set; }
         [DisplayName("Hours/Day Speed")]
-        public decimal? FastPgSpeedHr { get; set; }
+        public decimal FastPgSpeedHr { get; set; }
         // Fastest Read by Hour
         [DisplayName("Fastest Book Read by Hours/Day")]
         public int FastHrBookId { get; set; }
         public Book FastHrBook { get; set; }
         [DisplayName("Time To Finish")]
-        public decimal FastHrTimeToFinish { get; set; }
+        public int FastHrTimeToFinish { get; set; }
         [DisplayName("Pages/Day Speed")]
         public decimal FastHrSpeedPg { get; set; }
         [DisplayName("Hours/Day Speed")]
@@ -58,21 +58,21 @@ namespace BookLibrary.Models
         public int SlowPgBookId { get; set; }
         public Book SlowPgBook { get; set; }
         [DisplayName("Time To Finish")]
-        public decimal SlowPgTimeToFinish { get; set; }
+        public int SlowPgTimeToFinish { get; set; }
         [DisplayName("Pages/Day Speed")]
-        public decimal? SlowPgSpeedPg { get; set; }
+        public decimal SlowPgSpeedPg { get; set; }
         [DisplayName("Hours/Day Speed")]
-        public decimal? SlowPgSpeedHr { get; set; }
+        public decimal SlowPgSpeedHr { get; set; }
         //Slowest Read by Hour
         [DisplayName("Slowest Book Read by Hours/Day")]
         public int SlowHrBookId { get; set; }
         public Book SlowHrBook { get; set; }
         [DisplayName("Time To Finish")]
-        public decimal SlowHrTimeToFinish { get; set; }
+        public int SlowHrTimeToFinish { get; set; }
         [DisplayName("Pages/Day Speed")]
-        public decimal? SlowHrSpeedPg { get; set; }
+        public decimal SlowHrSpeedPg { get; set; }
         [DisplayName("Hours/Day Speed")]
-        public decimal? SlowHrSpeedHr { get; set; }
+        public decimal SlowHrSpeedHr { get; set; }
         // Newest, Oldest, Longest, Shortest
         [DisplayName("Newest Book")]
         public int NewBookId { get; set; }
