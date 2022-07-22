@@ -107,6 +107,9 @@
                 @Html.DisplayNameFor(model => model.BooksRead[0].Title)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.BooksRead[0].Authors)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.BooksRead[0].Category)
             </th>
             <th>
@@ -126,6 +129,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Authors)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Category)
