@@ -24,8 +24,20 @@
         </div>
         <div class="col-md-3">
             <div class="form-group">
+                <label asp-for="Author" class="control-label"></label>
+                <input asp-for="Author" class="form-control" />
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
                 <label asp-for="Reader" class="control-label"></label>
                 <input asp-for="Reader" class="form-control" />
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label asp-for="Category" class="control-label"></label>
+                <select asp-for="Category" class="form-control" asp-items="@Model.CategoryList"></select>
             </div>
         </div>
     </div>
@@ -92,7 +104,10 @@
                 @Html.DisplayNameFor(model => model.BooksRead[0].Reader)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BooksRead[0].Book)
+                @Html.DisplayNameFor(model => model.BooksRead[0].Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BooksRead[0].Category)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.BooksRead[0].StartDate)
@@ -107,10 +122,13 @@
 @foreach (var item in Model.BooksRead) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Reader.Name)
+                @Html.DisplayFor(modelItem => item.Reader)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Book.Title)
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category)
             </td>
             <td>
                 @String.Format("{0:M/d/yyyy}", item.StartDate)

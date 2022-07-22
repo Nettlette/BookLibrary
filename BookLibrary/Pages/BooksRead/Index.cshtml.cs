@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using BookLibrary.Data;
 using BookLibrary.Models;
 using System.ComponentModel;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using BookLibrary.Extensions;
 
 namespace BookLibrary.Pages.BooksRead
 {
@@ -20,7 +22,8 @@ namespace BookLibrary.Pages.BooksRead
             _context = context;
         }
 
-        public IList<BookLibrary.Models.BooksRead> BooksRead { get;set; } = default!;
+        public IList<BookLibrary.Models.BooksReadIndex> BooksRead { get;set; } = default!;
+        public SelectList CategoryList { get; set; }
         [BindProperty(SupportsGet = true)]
         public string? Title { get; set; }
         [BindProperty(SupportsGet = true)]
@@ -43,19 +46,28 @@ namespace BookLibrary.Pages.BooksRead
         [BindProperty(SupportsGet = true)]
         [DisplayName("No End Date")]
         public bool NoEndDate { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public Category? Category { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public string? Author { get; set; }
 
         public async Task OnGetAsync()
         {
+            CategoryList = new SelectList(PopulateDropdowns.GetCategories(), "Value", "Text", Category);
             if (_context.BooksRead != null)
             {
-                IQueryable<BookLibrary.Models.BooksRead> booksSearch = _context.BooksRead.Include(x => x.Book).Include(x => x.Reader);
+                IQueryable<BookLibrary.Models.BooksReadIndex> booksSearch = _context.BooksReadIndex;
                 if (!String.IsNullOrEmpty(Title))
                 {
-                    booksSearch = booksSearch.Where(x => x.Book.Title.Contains(Title));
+                    booksSearch = booksSearch.Where(x => x.Title.Contains(Title));
                 }
                 if (!String.IsNullOrEmpty(Reader))
                 {
-                    booksSearch = booksSearch.Where(x => x.Reader.Name.Contains(Reader));
+                    booksSearch = booksSearch.Where(x => x.Reader.Contains(Reader));
+                }
+                if (!String.IsNullOrEmpty(Author))
+                {
+                    booksSearch = booksSearch.Where(x => x.Authors.Contains(Author));
                 }
                 if (StartDateFrom != null)
                 {
@@ -81,7 +93,11 @@ namespace BookLibrary.Pages.BooksRead
                 {
                     booksSearch = booksSearch.Where(x => x.EndDate == null);
                 }
-                BooksRead = await booksSearch.OrderBy(x => x.Book.Title).OrderBy(x => x.Reader).OrderBy(x => x.EndDate).ToListAsync();
+                if (Category != null)
+                {
+                    booksSearch = booksSearch.Where(x => x.Category == Category);
+                }
+                BooksRead = await booksSearch.OrderBy(x => x.Title).OrderBy(x => x.Reader).OrderBy(x => x.EndDate).ToListAsync();
             }
         }
     }
