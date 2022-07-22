@@ -36,6 +36,7 @@ namespace BookLibrary.Data
         public DbSet<ReaderLocationsView> ReaderLocationsView { get; set; }
         public DbSet<ReaderSubcategoryView> ReaderSubcategoryView { get; set; }
         public DbSet<ReaderStats> ReaderStats { get; set; }
+        public DbSet<BooksReadIndex> BooksReadIndex { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -146,6 +147,12 @@ namespace BookLibrary.Data
                 {
                     eb.HasNoKey();
                     eb.ToView("ReaderStats");
+                });
+            modelBuilder.Entity<BooksReadIndex>(
+                eb =>
+                {
+                    eb.HasNoKey();
+                    eb.ToView("BooksReadIndex");
                 });
         }
 
