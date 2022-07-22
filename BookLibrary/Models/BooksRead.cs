@@ -15,7 +15,7 @@ namespace BookLibrary.Models
         public int ReaderId { get; set; }
         [DisplayName("Start Date")]
         public DateTime? StartDate { get; set; }
-        [DisplayName("Start Date")]
+        [DisplayName("End Date")]
         public DateTime? EndDate { get; set; }
         [NotMapped]
         public TimeSpan TimeToFinish { get {
