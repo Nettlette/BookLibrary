@@ -7,6 +7,7 @@
         public int ItemsPerPage { get; set; } = 25;
         public int TotalItems { get; set; }
         public int CurrentPage { get; set; }
+        public string Params { get; set; }
         public int TotalPages
         {
             get

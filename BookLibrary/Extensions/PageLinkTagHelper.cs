@@ -30,6 +30,7 @@ namespace BookLibrary.Extensions
         public string PageClass { get; set; }
         public string PageClassNormal { get; set; }
         public string PageClassSelected { get; set; }
+        public PagingInfo PagingModel { get; set; }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
@@ -38,23 +39,23 @@ namespace BookLibrary.Extensions
             int iIndex = 1;
             int iEndIndex = 1;
 
-            if(BooksReadViewModel.Paging.CurrentPage > 1)
+            if(PagingModel.CurrentPage > 1)
             {
                 result.InnerHtml.AppendHtml(GenerateTag(1, "<<"));
-                result.InnerHtml.AppendHtml(GenerateTag(BooksReadViewModel.Paging.CurrentPage - 1, "<"));
+                result.InnerHtml.AppendHtml(GenerateTag(PagingModel.CurrentPage - 1, "<"));
             }
-            iIndex = Math.Max(BooksReadViewModel.Paging.CurrentPage - 2, 1);
-            iEndIndex = Math.Min(BooksReadViewModel.Paging.CurrentPage + 2, BooksReadViewModel.Paging.TotalPages);
+            iIndex = Math.Max(PagingModel.CurrentPage - 2, 1);
+            iEndIndex = Math.Min(PagingModel.CurrentPage + 2, PagingModel.TotalPages);
 
             for (int i=iIndex; i<=iEndIndex; i++)
             {
                 result.InnerHtml.AppendHtml(GenerateTag(i, i.ToString()));
             }
 
-            if (BooksReadViewModel.Paging.CurrentPage < BooksReadViewModel.Paging.TotalPages)
+            if (PagingModel.CurrentPage < PagingModel.TotalPages)
             {
-                result.InnerHtml.AppendHtml(GenerateTag(BooksReadViewModel.Paging.CurrentPage + 1, ">"));
-                result.InnerHtml.AppendHtml(GenerateTag(BooksReadViewModel.Paging.TotalPages, ">>"));
+                result.InnerHtml.AppendHtml(GenerateTag(PagingModel.CurrentPage + 1, ">"));
+                result.InnerHtml.AppendHtml(GenerateTag(PagingModel.TotalPages, ">>"));
             }
         }
 
@@ -62,15 +63,15 @@ namespace BookLibrary.Extensions
         {
             TagBuilder tag = new TagBuilder("a");
             tag.Attributes["href"] = "/" + PageController + "/" + PageAction + "?" + PageName + "=" + i;
-            if (!String.IsNullOrEmpty(BooksReadViewModel.Title))
+            if (!String.IsNullOrEmpty(PagingModel.Params))
             {
-                tag.Attributes["href"] += "&Title=" + BooksReadViewModel.Title;
+                tag.Attributes["href"] += PagingModel.Params;
             }
 
             if (PageClassesEnabled)
             {
                 tag.AddCssClass(PageClass);
-                if (i == BooksReadViewModel.Paging.CurrentPage && sText == i.ToString())
+                if (i == PagingModel.CurrentPage && sText == i.ToString())
                     tag.AddCssClass(PageClassSelected);
                 else
                     tag.AddCssClass(PageClassNormal);

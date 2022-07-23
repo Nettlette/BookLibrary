@@ -10,6 +10,7 @@ using BookLibrary.Models;
 using System.ComponentModel;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using BookLibrary.Extensions;
+using System.Text;
 
 namespace BookLibrary.Pages.BooksRead
 {
@@ -58,52 +59,64 @@ namespace BookLibrary.Pages.BooksRead
             Paging = new PagingInfo();
             Paging.CurrentPage = Paging.CurrentPage == 0 ? 1 : Paging.CurrentPage;
             CategoryList = new SelectList(PopulateDropdowns.GetCategories(), "Value", "Text", Category);
+            StringBuilder param = new StringBuilder();
             if (_context.BooksRead != null)
             {
                 IQueryable<BookLibrary.Models.BooksReadIndex> booksSearch = _context.BooksReadIndex;
                 if (!String.IsNullOrEmpty(Title))
                 {
                     booksSearch = booksSearch.Where(x => x.Title.Contains(Title));
+                    param.Append($"&Title=").Append(Title);
                 }
                 if (!String.IsNullOrEmpty(Reader))
                 {
                     booksSearch = booksSearch.Where(x => x.Reader.Contains(Reader));
+                    param.Append($"&Reader=").Append(Reader);
                 }
                 if (!String.IsNullOrEmpty(Author))
                 {
                     booksSearch = booksSearch.Where(x => x.Authors.Contains(Author));
+                    param.Append($"&Author=").Append(Author);
                 }
                 if (StartDateFrom != null)
                 {
                     booksSearch = booksSearch.Where(x => x.StartDate >= StartDateFrom);
+                    param.Append($"&StartDateFrom=").Append(StartDateFrom);
                 }
                 if (StartDateTo != null)
                 {
                     booksSearch = booksSearch.Where(x => x.StartDate <= StartDateTo);
+                    param.Append($"&StartDateTo=").Append(StartDateTo);
                 }
                 if (EndDateFrom != null)
                 {
                     booksSearch = booksSearch.Where(x => x.EndDate >= EndDateFrom);
+                    param.Append($"&EndDateFrom=").Append(EndDateFrom);
                 }
                 if (EndDateTo != null)
                 {
                     booksSearch = booksSearch.Where(x => x.EndDate <= EndDateTo);
+                    param.Append($"&EndDateTo=").Append(EndDateTo);
                 }
                 if (NoStartDate)
                 {
                     booksSearch = booksSearch.Where(x => x.StartDate == null);
+                    param.Append($"&NoStartDate=").Append(NoStartDate);
                 }
                 if (NoEndDate)
                 {
                     booksSearch = booksSearch.Where(x => x.EndDate == null);
+                    param.Append($"&NoEndDate=").Append(NoEndDate);
                 }
                 if (Category != null)
                 {
                     booksSearch = booksSearch.Where(x => x.Category == Category);
+                    param.Append($"&Category=").Append(Category);
                 }
                 BooksRead = await booksSearch.OrderBy(x => x.Title).OrderBy(x => x.Reader).OrderBy(x => x.EndDate).ToListAsync();
                 Paging.TotalItems = BooksRead.Count;
                 Paging.CurrentPage = Math.Min(Paging.CurrentPage, Paging.TotalPages);
+                Paging.Params = param.ToString();
             }
         }
     }
