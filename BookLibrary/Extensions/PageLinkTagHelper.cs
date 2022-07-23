@@ -1,0 +1,82 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.AspNetCore.Razor.TagHelpers;
+using BookLibrary.Models;
+using BookLibrary.Pages.BooksRead;
+
+namespace BookLibrary.Extensions
+{
+    [HtmlTargetElement("div", Attributes="booksread-view-model")]
+    public class PageLinkTagHelper : TagHelper
+    {
+        private IUrlHelperFactory urlHelperFactory;
+
+        public PageLinkTagHelper(IUrlHelperFactory helperFactory)
+        {
+            urlHelperFactory = helperFactory;
+        }
+
+        [ViewContext]
+        [HtmlAttributeNotBound]
+        public ViewContext ViewContext { get; set; }
+
+        public Pages.BooksRead.IndexModel BooksReadViewModel { get; set; }
+        public string PageName { get; set; }
+        public string PageAction { get; set; }
+        public string PageController { get; set; }
+        public bool PageClassesEnabled { get; set; } = false;
+        public string PageClass { get; set; }
+        public string PageClassNormal { get; set; }
+        public string PageClassSelected { get; set; }
+
+        public override void Process(TagHelperContext context, TagHelperOutput output)
+        {
+            IUrlHelper urlHelper = urlHelperFactory.GetUrlHelper(ViewContext);
+            TagBuilder result = new TagBuilder("div");
+            int iIndex = 1;
+            int iEndIndex = 1;
+
+            if(BooksReadViewModel.Paging.CurrentPage > 1)
+            {
+                result.InnerHtml.AppendHtml(GenerateTag(1, "<<"));
+                result.InnerHtml.AppendHtml(GenerateTag(BooksReadViewModel.Paging.CurrentPage - 1, "<"));
+            }
+            iIndex = Math.Max(BooksReadViewModel.Paging.CurrentPage - 2, 1);
+            iEndIndex = Math.Min(BooksReadViewModel.Paging.CurrentPage + 2, BooksReadViewModel.Paging.TotalPages);
+
+            for (int i=iIndex; i<=iEndIndex; i++)
+            {
+                result.InnerHtml.AppendHtml(GenerateTag(i, i.ToString()));
+            }
+
+            if (BooksReadViewModel.Paging.CurrentPage < BooksReadViewModel.Paging.TotalPages)
+            {
+                result.InnerHtml.AppendHtml(GenerateTag(BooksReadViewModel.Paging.CurrentPage + 1, ">"));
+                result.InnerHtml.AppendHtml(GenerateTag(BooksReadViewModel.Paging.TotalPages, ">>"));
+            }
+        }
+
+        private TagBuilder GenerateTag(int i, string sText)
+        {
+            TagBuilder tag = new TagBuilder("a");
+            tag.Attributes["href"] = "/" + PageController + "/" + PageAction + "?" + PageName + "=" + i;
+            if (!String.IsNullOrEmpty(BooksReadViewModel.Title))
+            {
+                tag.Attributes["href"] += "&Title=" + BooksReadViewModel.Title;
+            }
+
+            if (PageClassesEnabled)
+            {
+                tag.AddCssClass(PageClass);
+                if (i == BooksReadViewModel.Paging.CurrentPage && sText == i.ToString())
+                    tag.AddCssClass(PageClassSelected);
+                else
+                    tag.AddCssClass(PageClassNormal);
+            }
+            tag.InnerHtml.Append(sText);
+            return tag;
+        }
+    }
+}

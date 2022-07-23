@@ -1,6 +1,6 @@
 ﻿@page
 @model BookLibrary.Pages.BooksRead.IndexModel
-
+@addTagHelper BookLibrary.Extensions.*, BookLibrary
 @{
     ViewData["Title"] = "Read a Book";
 }
@@ -96,19 +96,11 @@
             </div>
         </div>
     </div>
-    @if (_PagingInfo.TotalItems > _PagingInfo.ItemsPerPage) {
-        <div class="row">
-            <div class="col-md-12">
-                <div style="height: 3.1rem; text-align: center;" class="justify-content-center">
-                    <div class="btn-group justify-content-center"   role="group" aria-label="Basic outlined example">
-                        <button id="btnPrev" type="button" class="btn btn-outline-dark border-3 fw-bold" @onclick="PagingClickPrevious">&#60; Previous</button>
-                        <span id="btnPage"   type="button" class="btn btn-outline-dark disabled fw-bold">Page @_PagingInfo.CurrentPage of @_PagingInfo.TotalPages</span>
-                        <button id="btnNext" type="button" class="btn btn-outline-dark border-3 fw-bold" @onclick="PagingClickNext">Next &#62;</button>
-                    </div>
-                </div>
-            </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div booksread-view-model="@Model" page-name="Paging.CurrentPage" page-action="OnGetAsync" page-controller="BooksRead" page-classes-enabled="true" page-class="btn-sm" page-class-normal="btn-secondary btn-sm" page-class-selected="btn-primary btn-sm" class="btn-group btn-group-sm"></div><br />
         </div>
-    }
+    </div>
 </form>
 <div class="row">
     <div class="col-md-12">
