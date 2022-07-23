@@ -96,6 +96,19 @@
             </div>
         </div>
     </div>
+    @if (_PagingInfo.TotalItems > _PagingInfo.ItemsPerPage) {
+        <div class="row">
+            <div class="col-md-12">
+                <div style="height: 3.1rem; text-align: center;" class="justify-content-center">
+                    <div class="btn-group justify-content-center"   role="group" aria-label="Basic outlined example">
+                        <button id="btnPrev" type="button" class="btn btn-outline-dark border-3 fw-bold" @onclick="PagingClickPrevious">&#60; Previous</button>
+                        <span id="btnPage"   type="button" class="btn btn-outline-dark disabled fw-bold">Page @_PagingInfo.CurrentPage of @_PagingInfo.TotalPages</span>
+                        <button id="btnNext" type="button" class="btn btn-outline-dark border-3 fw-bold" @onclick="PagingClickNext">Next &#62;</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
 </form>
 <div class="row">
     <div class="col-md-12">
@@ -156,3 +169,4 @@
 }
     </tbody>
 </table>
+

@@ -50,6 +50,8 @@ namespace BookLibrary.Pages.BooksRead
         public Category? Category { get; set; }
         [BindProperty(SupportsGet = true)]
         public string? Author { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public PagingInfo Paging { get; set; }
 
         public async Task OnGetAsync()
         {
@@ -98,6 +100,7 @@ namespace BookLibrary.Pages.BooksRead
                     booksSearch = booksSearch.Where(x => x.Category == Category);
                 }
                 BooksRead = await booksSearch.OrderBy(x => x.Title).OrderBy(x => x.Reader).OrderBy(x => x.EndDate).ToListAsync();
+                Paging.TotalItems = BooksRead.Count;
             }
         }
     }
