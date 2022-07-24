@@ -8,7 +8,7 @@ using BookLibrary.Pages.BooksRead;
 
 namespace BookLibrary.Extensions
 {
-    [HtmlTargetElement("div", Attributes="booksread-view-model")]
+    [HtmlTargetElement("div", Attributes="search-view-model")]
     public class PageLinkTagHelper : TagHelper
     {
         private IUrlHelperFactory urlHelperFactory;
@@ -57,12 +57,18 @@ namespace BookLibrary.Extensions
                 result.InnerHtml.AppendHtml(GenerateTag(PagingModel.CurrentPage + 1, ">"));
                 result.InnerHtml.AppendHtml(GenerateTag(PagingModel.TotalPages, ">>"));
             }
+            output.Content.AppendHtml(result.InnerHtml);
         }
 
         private TagBuilder GenerateTag(int i, string sText)
         {
             TagBuilder tag = new TagBuilder("a");
-            tag.Attributes["href"] = "/" + PageController + "/" + PageAction + "?" + PageName + "=" + i;
+            tag.Attributes["href"] = "/" + PageController;
+            if(PageAction != null)
+            {
+                tag.Attributes["href"] += "/" + PageAction;
+            }
+            tag.Attributes["href"] = "?" + PageName + "=" + i;
             if (!String.IsNullOrEmpty(PagingModel.Params))
             {
                 tag.Attributes["href"] += PagingModel.Params;

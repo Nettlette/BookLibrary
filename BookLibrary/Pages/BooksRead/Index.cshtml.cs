@@ -56,7 +56,6 @@ namespace BookLibrary.Pages.BooksRead
 
         public async Task OnGetAsync()
         {
-            Paging = new PagingInfo();
             Paging.CurrentPage = Paging.CurrentPage == 0 ? 1 : Paging.CurrentPage;
             CategoryList = new SelectList(PopulateDropdowns.GetCategories(), "Value", "Text", Category);
             StringBuilder param = new StringBuilder();
@@ -113,8 +112,14 @@ namespace BookLibrary.Pages.BooksRead
                     booksSearch = booksSearch.Where(x => x.Category == Category);
                     param.Append($"&Category=").Append(Category);
                 }
-                BooksRead = await booksSearch.OrderBy(x => x.Title).OrderBy(x => x.Reader).OrderBy(x => x.EndDate).ToListAsync();
-                Paging.TotalItems = BooksRead.Count;
+                booksSearch = booksSearch.OrderBy(x => x.Title)
+                                        .OrderBy(x => x.Reader)
+                                        .OrderBy(x => x.EndDate);
+                BooksRead = await booksSearch
+                                        .Skip((Paging.CurrentPage - 1) * Paging.ItemsPerPage)
+                                        .Take(Paging.ItemsPerPage)
+                                        .ToListAsync();
+                Paging.TotalItems = booksSearch.Count();
                 Paging.CurrentPage = Math.Min(Paging.CurrentPage, Paging.TotalPages);
                 Paging.Params = param.ToString();
             }
