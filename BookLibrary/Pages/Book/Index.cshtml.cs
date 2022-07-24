@@ -10,6 +10,7 @@ using BookLibrary.Models;
 using System.ComponentModel;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using BookLibrary.Extensions;
+using System.Text;
 
 namespace BookLibrary.Pages.Book
 {
@@ -44,16 +45,13 @@ namespace BookLibrary.Pages.Book
         public SelectList LocationsList { get; set; }
         public SelectList SubcategoriesList { get; set; }
         public SelectList CategoryList { get; set; }
-
-        public int PageSize { get; set; }
         [BindProperty(SupportsGet = true)]
-        public int PageNumber { get; set; } = 1;
-        public int PreviousPage { get { return PageNumber - 1; } }
-        public int NextPage { get { return PageNumber + 1; } }
-        
+        public PagingInfo Paging { get; set; }
+
         public async Task OnGetAsync()
         {
-            PageSize = 25;
+            Paging.CurrentPage = Paging.CurrentPage == 0 ? 1 : Paging.CurrentPage;
+            StringBuilder param = new StringBuilder();
             LocationsList = new SelectList(PopulateDropdowns.GetLocations(_context), "Text", "Text", Locations);
             SubcategoriesList = new SelectList(PopulateDropdowns.GetSubcategories(_context), "Text", "Text", Subcategory);
             CategoryList = new SelectList(PopulateDropdowns.GetCategories(), "Value", "Text", CategoryList);
@@ -63,36 +61,48 @@ namespace BookLibrary.Pages.Book
                 if (!String.IsNullOrEmpty(Title))
                 {
                     BookSearch = BookSearch.Where(x => x.Title.Contains(Title));
+                    param.Append($"&Title=").Append(Title);
                 }
                 if (!String.IsNullOrEmpty(Author))
                 {
-                    BookSearch = BookSearch.Where(x => x.Authors.Contains(Author) || x.Authors == null);
+                    BookSearch = BookSearch.Where(x => x.Authors.Contains(Author));
+                    param.Append($"&Author=").Append(Author);
                 }
                 if (PublishStartDate != null)
                 {
                     BookSearch = BookSearch.Where(x => x.Published >= PublishStartDate);
+                    param.Append($"&PublishStartDate=").Append(PublishStartDate);
                 }
                 if (PublishEndDate != null)
                 {
                     BookSearch = BookSearch.Where(x => x.Published <= PublishEndDate);
+                    param.Append($"&PublishEndDate=").Append(PublishEndDate);
                 }
                 if (!String.IsNullOrEmpty(Subcategory))
                 {
-                    BookSearch = BookSearch.Where(x => x.Subcategories.Contains(Subcategory) || x.Subcategories == null);
+                    BookSearch = BookSearch.Where(x => x.Subcategories.Contains(Subcategory));
+                    param.Append($"&Subcategory=").Append(Subcategory);
                 }
                 if (!String.IsNullOrEmpty(Locations))
                 {
-                    BookSearch = BookSearch.Where(x => x.Locations.Contains(Locations) || x.Locations == null);
+                    BookSearch = BookSearch.Where(x => x.Locations.Contains(Locations));
+                    param.Append($"&Locations=").Append(Locations);
                 }
                 if (!String.IsNullOrEmpty(Series))
                 {
-                    BookSearch = BookSearch.Where(x => x.SeriesName.Contains(Series) || x.SeriesName == null);
+                    BookSearch = BookSearch.Where(x => x.SeriesName.Contains(Series));
+                    param.Append($"&Series=").Append(Series);
                 }
                 if (Category != null)
                 {
-                    BookSearch = BookSearch.Where(x => x.Category == Category || x.Category == null);
+                    BookSearch = BookSearch.Where(x => x.Category == Category);
+                    param.Append($"&Category=").Append(Category);
                 }
-                Books = await BookSearch.OrderBy(x => x.Title).Skip((PageNumber - 1) * PageSize).Take(PageSize).ToListAsync();
+                BookSearch = BookSearch.OrderBy(x => x.Title);
+                Books = await BookSearch.Skip((Paging.CurrentPage - 1) * Paging.ItemsPerPage).Take(Paging.ItemsPerPage).ToListAsync();
+                Paging.TotalItems = BookSearch.Count();
+                Paging.CurrentPage = Math.Min(Paging.CurrentPage, Paging.TotalPages);
+                Paging.Params = param.ToString();
             }
         }
     }

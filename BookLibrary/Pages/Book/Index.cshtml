@@ -1,6 +1,6 @@
 ﻿@page
 @model BookLibrary.Pages.Book.IndexModel
-
+@addTagHelper BookLibrary.Extensions.*, BookLibrary
 @{
     ViewData["Title"] = "Books";
 }
@@ -78,13 +78,11 @@
                 <input type="submit" value="Search" class="btn btn-default" />
             </div>
         </div>
-        @*<div class="col-md-12">
-        @if (@Model.PreviousPage != 0)
-        {
-            <input type="submit" value="@Model.PreviousPage" name="PreviousPage" class="btn btn-default"/>
-        }
-        <input type="submit" value="@Model.NextPage" name="NextPage" class="btn btn-default" />
-        </div>*@
+        <div class="row">
+            <div class="col-md-12">
+                <div search-view-model page-name="Paging.CurrentPage" page-controller="Books" page-classes-enabled="true" page-class="btn-sm" page-class-normal="btn-secondary btn-sm" page-class-selected="btn-primary btn-sm" paging-model="@Model.Paging" class="btn-group btn-group-sm"></div><br />
+            </div>
+        </div>
     </form>
 
 <table class="table">
