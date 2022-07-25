@@ -17,15 +17,15 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label asp-for="BooksRead.BookId" class="control-label"></label>
-                <select asp-for="BooksRead.BookId" class="form-control" asp-items="@Model.Books" multiple multiselect-max-items="1" multiselect-search="true"></select>
-                <span asp-validation-for="BooksRead.BookId" class="text-danger"></span>
+                <select asp-for="SelectedBooks" class="form-control" asp-items="@Model.Books" multiple multiselect-search="true"></select>
+                <span asp-validation-for="SelectedBooks" class="text-danger"></span>
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group">
                 <label asp-for="BooksRead.ReaderId" class="control-label"></label>
-                <select asp-for="BooksRead.ReaderId" class="form-control" asp-items="@Model.Readers" multiple multiselect-max-items="1" multiselect-search="true"></select>
-                <span asp-validation-for="BooksRead.ReaderId" class="text-danger"></span>
+                <select asp-for="SelectedReaders" class="form-control" asp-items="@Model.Readers" multiple multiselect-search="true"></select>
+                <span asp-validation-for="SelectedReaders" class="text-danger"></span>
             </div>
         </div>
         <div class="col-md-6">

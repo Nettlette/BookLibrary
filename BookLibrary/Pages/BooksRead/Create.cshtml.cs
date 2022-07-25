@@ -27,8 +27,12 @@ namespace BookLibrary.Pages.BooksRead
             return Page();
         }
 
-        [BindProperty]
+        [BindProperty(SupportsGet = true)]
         public BookLibrary.Models.BooksRead BooksRead { get; set; } = default!;
+        [BindProperty(SupportsGet = true)]
+        public int[] SelectedReaders { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public int[] SelectedBooks { get; set; }
         public SelectList Readers { get; set; }
         public SelectList Books { get; set; }
 
@@ -39,8 +43,16 @@ namespace BookLibrary.Pages.BooksRead
             {
                 return Page();
             }
+            List<BookLibrary.Models.BooksRead> br = new List<BookLibrary.Models.BooksRead>();
+            foreach (var r in SelectedReaders)
+            {
+                foreach (var b in SelectedBooks)
+                {
+                    br.Add(new Models.BooksRead { BookId = b, ReaderId = r, StartDate = BooksRead.StartDate, EndDate = BooksRead.EndDate });
+                }
+            }
 
-            _context.BooksRead.Add(BooksRead);
+            _context.BooksRead.AddRange(br);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

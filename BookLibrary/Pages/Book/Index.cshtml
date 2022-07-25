@@ -14,7 +14,6 @@
     <a asp-page="Create">Create New</a>
 </p>
 
-
     <form asp-action="Index" method="OnGetAsync">
        <div class="row">
            <div class="col-md-3">
@@ -153,6 +152,7 @@
                 <td>
                     <a asp-page="./Edit" asp-route-id="@item.BookId">Edit</a> |
                     <a asp-page="./Details" asp-route-id="@item.BookId">Details</a> |
+                    <a asp-page="/BooksRead/Create" asp-route-bookid="@item.BookId" asp-route-startdate="@DateTime.Today">Read</a> |
                     <a asp-page="./Delete" asp-route-id="@item.BookId">Delete</a>
                 </td>
             </tr>
