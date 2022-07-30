@@ -37,6 +37,8 @@ namespace BookLibrary.Data
         public DbSet<ReaderSubcategoryView> ReaderSubcategoryView { get; set; }
         public DbSet<ReaderStats> ReaderStats { get; set; }
         public DbSet<BooksReadIndex> BooksReadIndex { get; set; }
+        public DbSet<TopAuthors> TopAuthors { get; set; }
+        public DbSet<BooksPublished> BooksPublished { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -153,6 +155,18 @@ namespace BookLibrary.Data
                 {
                     eb.HasNoKey();
                     eb.ToView("BooksReadIndex");
+                });
+            modelBuilder.Entity<TopAuthors>(
+                eb =>
+                {
+                    eb.HasNoKey();
+                    eb.ToView("TopAuthors");
+                });
+            modelBuilder.Entity<BooksPublished>(
+                eb =>
+                {
+                    eb.HasNoKey();
+                    eb.ToView("BooksPublished");
                 });
         }
 

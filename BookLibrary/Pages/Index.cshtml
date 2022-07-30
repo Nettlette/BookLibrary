@@ -1,12 +1,53 @@
 ﻿@page
+@using ChartJSCore.Models;
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
+<div class="row">
+    <div class="col-md-12">
     <p>Books read this week: @Model.BooksWeek</p>
     <p>Books read this month: @Model.BooksMonth</p>
     <p>Books read this year: @Model.BooksYear</p>
-
+    </div>
+    <div class="col-md-3">
+        <canvas id="FNFRead" height="250"></canvas>
+    </div>
+    <div class="col-md-3">
+        <canvas id="BooksRead12Month" height="250"></canvas>
+    </div>
+    <div class="col-md-3">
+        <canvas id="TimeToFinish" height="250"></canvas>
+    </div>
+    <div class="col-md-3">
+        <canvas id="TopAuthors" height="250"></canvas>
+    </div>
+    <div class="col-md-12">
+        <canvas id="BooksPublished" height="500"></canvas>
+    </div>
+    <div class="col-md-12">
+        <!--<canvas id="BooksPublished" height="500"></canvas>-->
+    </div>
 </div>
+
+@section Scripts {
+    <script src="~/chartjs/chart.js"></script>
+    <script src="~/date-fns/date_fns.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <script type="text/javascript">
+        @Html.Raw(Model.FNFRead.CreateChartCode("FNFRead"));
+    </script>
+    <script type="text/javascript">
+        @Html.Raw(Model.BooksRead12Month.CreateChartCode("BooksRead12Month"));
+    </script>
+    <script type="text/javascript">
+        @Html.Raw(Model.TimeToFinish.CreateChartCode("TimeToFinish"));
+    </script>
+    <script type="text/javascript">
+        @Html.Raw(Model.TopAuthors.CreateChartCode("TopAuthors"));
+    </script>
+    <script type="text/javascript">
+        @Html.Raw(Model.BooksPublished.CreateChartCode("BooksPublished"));
+    </script>
+}
