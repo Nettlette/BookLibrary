@@ -20,10 +20,18 @@ namespace BookLibrary.Pages.BooksRead
             _context = context;
         }
 
-        public IActionResult OnGet()
+        public IActionResult OnGet(int? bookid = null, DateTime? date = null)
         {
             Readers = new SelectList(PopulateDropdowns.GetReaders(_context), "Value", "Text");
             Books = new SelectList(PopulateDropdowns.GetBooks(_context), "Value", "Text");
+            if (bookid != null)
+            {
+                SelectedBooks = new int[1] { (int)bookid };
+            }
+            if (date != null)
+            {
+                BooksRead.StartDate = date;
+            }
             return Page();
         }
 

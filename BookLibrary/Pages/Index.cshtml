@@ -6,28 +6,49 @@
 }
 
 <div class="row">
-    <div class="col-md-12">
-    <p>Books read this week: @Model.BooksWeek</p>
-    <p>Books read this month: @Model.BooksMonth</p>
-    <p>Books read this year: @Model.BooksYear</p>
+    <div class="col-md-4">
+        <p>Books read this week: @Model.BooksWeek</p>
+        <p>Books read this month: @Model.BooksMonth</p>
+        <p>Books read this year: @Model.BooksYear</p>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-4">
+        <p>Books In Progress</p>
+        <ul>
+            @foreach(var b in Model.BooksInProgress)
+            {
+                <li>@b</li>
+            }
+        </ul>
+    </div>
+    <div class="col-md-4">
+        <p>Books Just Finished</p>
+        <ul>
+            @foreach(var b in Model.LastBooksFinished)
+            {
+                <li>@b</li>
+            }
+        </ul>
+    </div>
+    <div class="col-md-4">
         <canvas id="FNFRead" height="250"></canvas>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-4">
         <canvas id="BooksRead12Month" height="250"></canvas>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-4">
         <canvas id="TimeToFinish" height="250"></canvas>
-    </div>
-    <div class="col-md-3">
-        <canvas id="TopAuthors" height="250"></canvas>
     </div>
     <div class="col-md-12">
         <canvas id="BooksPublished" height="500"></canvas>
     </div>
-    <div class="col-md-12">
-        <!--<canvas id="BooksPublished" height="500"></canvas>-->
+    <div class="col-md-4">
+        <canvas id="TopAuthors" height="250"></canvas>
+    </div>
+    <div class="col-md-4">
+        <canvas id="PagesByAuthor" height="250"></canvas>
+    </div>
+    <div class="col-md-4">
+        <canvas id="HoursByAuthor" height="250"></canvas>
     </div>
 </div>
 
@@ -49,5 +70,11 @@
     </script>
     <script type="text/javascript">
         @Html.Raw(Model.BooksPublished.CreateChartCode("BooksPublished"));
+    </script>
+    <script type="text/javascript">
+        @Html.Raw(Model.PagesByAuthor.CreateChartCode("PagesByAuthor"));
+    </script>
+    <script type="text/javascript">
+        @Html.Raw(Model.HoursByAuthor.CreateChartCode("HoursByAuthor"));
     </script>
 }

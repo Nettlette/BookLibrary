@@ -25,6 +25,10 @@ namespace BookLibrary.Pages
         public Chart TimeToFinish;
         public Chart TopAuthors;
         public Chart BooksPublished;
+        public Chart PagesByAuthor;
+        public Chart HoursByAuthor;
+        public List<string> LastBooksFinished;
+        public List<string> BooksInProgress;
 
         public IndexModel(ILogger<IndexModel> logger, ApplicationDbContext context)
         {
@@ -33,12 +37,26 @@ namespace BookLibrary.Pages
             BooksWeek = _context.BooksRead.Count(x => x.EndDate >= StartOfWeek);
             BooksMonth = _context.BooksRead.Count(x => x.EndDate >= StartOfMonth);
             BooksYear = _context.BooksRead.Count(x => x.EndDate >= StartOfYear);
+            LastBooksFinished = _context.BooksReadIndex
+                                    .Where(x => x.StartDate != null && x.EndDate != null)
+                                    .OrderByDescending(x => x.EndDate)
+                                    .Take(5)
+                                    .Select(x => x.Title + " by " + x.Authors)
+                                    .ToList();
+            BooksInProgress = _context.BooksReadIndex
+                                    .Where(x => x.StartDate != null && x.EndDate == null)
+                                    .OrderByDescending(x => x.StartDate)
+                                    .Take(5)
+                                    .Select(x => x.Title + " by " + x.Authors)
+                                    .ToList();
 
             FNFRead = GenerateFNFReadPieChart();
             BooksRead12Month = GenerateBooksRead12MonthBarChart();
             TimeToFinish = GenerateTimeToFinishBarChart();
             TopAuthors = GenerateTopAuthorsPieChart();
             BooksPublished = GenerateBooksPublishedScatterChart();
+            PagesByAuthor = GeneratePagesByAuthorPieChart();
+            HoursByAuthor = GenerateHoursByAuthorPieChart();
         }
 
         public void OnGet()
@@ -72,6 +90,7 @@ namespace BookLibrary.Pages
             data.Datasets.Add(dataset);
 
             chart.Data = data;
+            chart.Options.MaintainAspectRatio = false;
             chart.Options.Plugins = new Plugins();
             chart.Options.Plugins.Title = new Title
             {
@@ -103,7 +122,7 @@ namespace BookLibrary.Pages
                 }
             };
 
-            var ta = _context.TopAuthors.Where(x => x.ReadCount >= 10).OrderBy(x => x.ReadCount).ToList();
+            var ta = _context.TopAuthors.Where(x => x.ReadCount >= 10).OrderByDescending(x => x.ReadCount).ToList();
             foreach(var t in ta)
             {
                 data.Labels.Add(t.Name);
@@ -113,11 +132,104 @@ namespace BookLibrary.Pages
             data.Datasets.Add(dataset);
 
             chart.Data = data;
+            chart.Options.MaintainAspectRatio = false;
             chart.Options.Plugins = new Plugins();
             chart.Options.Plugins.Title = new Title
             {
                 Display = true,
                 Text = new List<string>() { "Top Authors Read" }
+            };
+            chart.Options.Plugins.Legend = new Legend
+            {
+                Display = false
+            };
+            return chart;
+        }
+
+        private Chart GenerateHoursByAuthorPieChart()
+        {
+            Chart chart = new Chart();
+            chart.Type = Enums.ChartType.Pie;
+
+            ChartJSCore.Models.Data data = new ChartJSCore.Models.Data();
+            data.Labels = new List<string>();
+
+            PieDataset dataset = new PieDataset()
+            {
+                Label = "Authors",
+                Data = new List<double?>(),
+                BackgroundColor = new List<ChartColor>
+                {
+                    ColorPalatte.Purple,
+                    ColorPalatte.Pink,
+                    ColorPalatte.Blue,
+                    ColorPalatte.Grey,
+                    ColorPalatte.Black
+                }
+            };
+
+            var ta = _context.PagesHoursByAuthorView.Where(x => x.Hours >= 15).OrderByDescending(x => x.Hours).ToList();
+            foreach(var t in ta)
+            {
+                data.Labels.Add(t.Name);
+                dataset.Data.Add((double?)t.Hours);
+            }
+            data.Datasets = new List<Dataset>();
+            data.Datasets.Add(dataset);
+
+            chart.Data = data;
+            chart.Options.MaintainAspectRatio = false;
+            chart.Options.Plugins = new Plugins();
+            chart.Options.Plugins.Title = new Title
+            {
+                Display = true,
+                Text = new List<string>() { "Hours Read by Author" }
+            };
+            chart.Options.Plugins.Legend = new Legend
+            {
+                Display = false
+            };
+            return chart;
+        }
+
+        private Chart GeneratePagesByAuthorPieChart()
+        {
+            Chart chart = new Chart();
+            chart.Type = Enums.ChartType.Pie;
+
+            ChartJSCore.Models.Data data = new ChartJSCore.Models.Data();
+            data.Labels = new List<string>();
+
+            PieDataset dataset = new PieDataset()
+            {
+                Label = "Authors",
+                Data = new List<double?>(),
+                BackgroundColor = new List<ChartColor>
+                {
+                    ColorPalatte.Purple,
+                    ColorPalatte.Pink,
+                    ColorPalatte.Blue,
+                    ColorPalatte.Grey,
+                    ColorPalatte.Black
+                }
+            };
+
+            var ta = _context.PagesHoursByAuthorView.Where(x => x.Pages >= 5000).OrderByDescending(x => x.Pages).ToList();
+            foreach(var t in ta)
+            {
+                data.Labels.Add(t.Name);
+                dataset.Data.Add(t.Pages);
+            }
+            data.Datasets = new List<Dataset>();
+            data.Datasets.Add(dataset);
+
+            chart.Data = data;
+            chart.Options.Plugins = new Plugins();
+            chart.Options.MaintainAspectRatio = false;
+            chart.Options.Plugins.Title = new Title
+            {
+                Display = true,
+                Text = new List<string>() { "Pages Read by Author" }
             };
             chart.Options.Plugins.Legend = new Legend
             {
@@ -183,6 +295,7 @@ namespace BookLibrary.Pages
 
             var options = new Options
             {
+                MaintainAspectRatio = false,
                 Scales = new Dictionary<string, Scale>()
                 {
                     { "y", new CartesianLinearScale()
@@ -250,6 +363,7 @@ namespace BookLibrary.Pages
 
             var options = new Options
             {
+                MaintainAspectRatio = false,
                 Scales = new Dictionary<string, Scale>()
                 {
                     { "y", new CartesianLinearScale()
@@ -289,7 +403,7 @@ namespace BookLibrary.Pages
 
             ChartJSCore.Models.Data data = new ChartJSCore.Models.Data();
             data.Labels = new List<string>();
-
+            
             LineScatterDataset dataset = new LineScatterDataset()
             {
                 Label = "Books Read by Year Published",
@@ -298,7 +412,8 @@ namespace BookLibrary.Pages
                     ColorPalatte.Blue
                 },
                 BorderWidth = new List<int>() { 1 },
-                Data = new List<LineScatterData>()
+                Data = new List<LineScatterData>(),
+                ShowLine = false
             };
 
             dataset.Data = _context.BooksPublished.Where(x => x.EndDate > new DateTime(2007, 1, 1))
@@ -311,29 +426,25 @@ namespace BookLibrary.Pages
 
             chart.Data = data;
 
-            /*var options = new Options
+            var options = new Options
             {
+                MaintainAspectRatio = false,
                 Scales = new Dictionary<string, Scale>()
                 {
-                    {"y", new Scale()
+                    {"y", new CartesianLinearScale()
                         {
-                            Max = 2050
-                        } 
-                    },
-                    { "x", new TimeScale()
-                        {
-                            Grid = new Grid()
-                            {
-                                Offset = true,
-                                DrawTicks = false
-                            },
-                            Type = "time"
+                            Max = 2025,
                             
-                        }
-                    },
+                            Ticks = new CartesianLinearTick()
+                            {
+                                StepSize = 25,
+                                
+                            }
+                        } 
+                    }
                 }
-            };*/
-            chart.Options = new Options();
+            };
+            chart.Options = options;
             chart.Options.Plugins = new Plugins();
             chart.Options.Plugins.Title = new Title
             {

@@ -39,6 +39,7 @@ namespace BookLibrary.Data
         public DbSet<BooksReadIndex> BooksReadIndex { get; set; }
         public DbSet<TopAuthors> TopAuthors { get; set; }
         public DbSet<BooksPublished> BooksPublished { get; set; }
+        public DbSet<PagesHoursByAuthorView> PagesHoursByAuthorView { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -167,6 +168,12 @@ namespace BookLibrary.Data
                 {
                     eb.HasNoKey();
                     eb.ToView("BooksPublished");
+                });
+            modelBuilder.Entity<PagesHoursByAuthorView>(
+                eb =>
+                {
+                    eb.HasNoKey();
+                    eb.ToView("PagesHoursByAuthorView");
                 });
         }
 
