@@ -118,7 +118,11 @@ namespace BookLibrary.Pages
                     ColorPalatte.Pink,
                     ColorPalatte.Blue,
                     ColorPalatte.Grey,
-                    ColorPalatte.Black
+                    ColorPalatte.Black,
+                    ColorPalatte.DarkRed,
+                    ColorPalatte.Green,
+                    ColorPalatte.Yellow,
+                    ColorPalatte.Red
                 }
             };
 
@@ -164,7 +168,11 @@ namespace BookLibrary.Pages
                     ColorPalatte.Pink,
                     ColorPalatte.Blue,
                     ColorPalatte.Grey,
-                    ColorPalatte.Black
+                    ColorPalatte.Black,
+                    ColorPalatte.DarkRed,
+                    ColorPalatte.Green,
+                    ColorPalatte.Yellow,
+                    ColorPalatte.Red
                 }
             };
 
@@ -210,7 +218,11 @@ namespace BookLibrary.Pages
                     ColorPalatte.Pink,
                     ColorPalatte.Blue,
                     ColorPalatte.Grey,
-                    ColorPalatte.Black
+                    ColorPalatte.Black,
+                    ColorPalatte.DarkRed,
+                    ColorPalatte.Green,
+                    ColorPalatte.Yellow,
+                    ColorPalatte.Red
                 }
             };
 
