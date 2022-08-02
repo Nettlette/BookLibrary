@@ -27,6 +27,8 @@ namespace BookLibrary.Pages
         public Chart BooksPublished;
         public Chart PagesByAuthor;
         public Chart HoursByAuthor;
+        public Chart SubcategoriesRead;
+        public Chart LocationsRead;
         public List<string> LastBooksFinished;
         public List<string> BooksInProgress;
 
@@ -34,6 +36,10 @@ namespace BookLibrary.Pages
         {
             _logger = logger;
             _context = context;
+        }
+
+        public void OnGet()
+        {
             BooksWeek = _context.BooksRead.Count(x => x.EndDate >= StartOfWeek);
             BooksMonth = _context.BooksRead.Count(x => x.EndDate >= StartOfMonth);
             BooksYear = _context.BooksRead.Count(x => x.EndDate >= StartOfYear);
@@ -57,10 +63,8 @@ namespace BookLibrary.Pages
             BooksPublished = GenerateBooksPublishedScatterChart();
             PagesByAuthor = GeneratePagesByAuthorPieChart();
             HoursByAuthor = GenerateHoursByAuthorPieChart();
-        }
-
-        public void OnGet()
-        {
+            SubcategoriesRead = GenerateSubcategoriesReadBarChart();
+            LocationsRead = GenerateLocationsReadBarChart();
 
         }
 
@@ -412,29 +416,51 @@ namespace BookLibrary.Pages
         {
             Chart chart = new Chart();
             chart.Type = Enums.ChartType.Scatter;
+            DateTime EndDate = new DateTime(DateTime.Now.Year - 10, 1, 1);
 
             ChartJSCore.Models.Data data = new ChartJSCore.Models.Data();
             data.Labels = new List<string>();
             
-            LineScatterDataset dataset = new LineScatterDataset()
+            LineScatterDataset fictionDataset = new LineScatterDataset()
             {
-                Label = "Books Read by Year Published",
+                Label = "Fiction Books Read by Year Published",
                 BackgroundColor = new List<ChartColor>
                 {
-                    ColorPalatte.Blue
+                    ColorPalatte.Purple
+                },
+                BorderWidth = new List<int>() { 1 },
+                Data = new List<LineScatterData>(),
+                ShowLine = false
+            };
+            LineScatterDataset nonfictionDataset = new LineScatterDataset()
+            {
+                Label = "Nonfiction Books Read by Year Published",
+                BackgroundColor = new List<ChartColor>
+                {
+                    ColorPalatte.Red
                 },
                 BorderWidth = new List<int>() { 1 },
                 Data = new List<LineScatterData>(),
                 ShowLine = false
             };
 
-            dataset.Data = _context.BooksPublished.Where(x => x.EndDate > new DateTime(2007, 1, 1))
+            fictionDataset.Data = _context.BooksPublished.Where(x => x.Category == Models.Category.Fiction && x.EndDate > EndDate)
                 .OrderBy(x => x.EndDate)
                 .Select(a => new LineScatterData { X = a.EndDate.ToString("MM/dd/yyyy"), Y = a.Published.ToString() })
                 .ToList();
 
+            nonfictionDataset.Data = _context.BooksPublished.Where(x => x.Category == Models.Category.Nonfiction && x.EndDate > EndDate)
+                .OrderBy(x => x.EndDate)
+                .Select(a => new LineScatterData { X = a.EndDate.ToString("MM/dd/yyyy"), Y = a.Published.ToString() })
+                .ToList();
+            List<string> labels = fictionDataset.Data.Select(a => a.X).ToList();
+            labels.AddRange(nonfictionDataset.Data.Select(a => a.X).ToList());
+            labels.Sort();
+            data.Labels = labels;
+
             data.Datasets = new List<Dataset>();
-            data.Datasets.Add(dataset);
+            data.Datasets.Add(fictionDataset);
+            data.Datasets.Add(nonfictionDataset);
 
             chart.Data = data;
 
@@ -462,6 +488,152 @@ namespace BookLibrary.Pages
             {
                 Display = true,
                 Text = new List<string>() { "Books Read by Year Published" }
+            };
+            return chart;
+        }
+
+        private Chart GenerateSubcategoriesReadBarChart()
+        {
+            Chart chart = new Chart();
+            chart.Type = Enums.ChartType.Bar;
+
+            ChartJSCore.Models.Data data = new ChartJSCore.Models.Data();
+            data.Labels = new List<string>();
+
+            BarDataset dataset = new BarDataset()
+            {
+                Label = "Subcategories",
+                BackgroundColor = new List<ChartColor>
+                {
+                    ColorPalatte.Purple,
+                    ColorPalatte.Pink,
+                    ColorPalatte.Blue,
+                    ColorPalatte.Grey,
+                    ColorPalatte.Black,
+                    ColorPalatte.DarkRed,
+                    ColorPalatte.Green,
+                    ColorPalatte.Yellow,
+                    ColorPalatte.Red
+                },
+                BorderWidth = new List<int>() { 1 },
+                BarPercentage = .75,
+                MinBarLength = 2,
+                CategoryPercentage = 1.0,
+                Data = new List<double?>()
+            };
+
+            dataset.Data = _context.SubcategoryChartView.Where(x => x.CountRead > 15).OrderByDescending(x => x.CountRead).Select(x => (double?)x.CountRead).ToList();
+            data.Labels = _context.SubcategoryChartView.Where(x => x.CountRead > 15).OrderByDescending(x => x.CountRead).Select(x => x.Name).ToList();
+
+            data.Datasets = new List<Dataset>();
+            data.Datasets.Add(dataset);
+
+            chart.Data = data;
+
+            var options = new Options
+            {
+                MaintainAspectRatio = false,
+                Scales = new Dictionary<string, Scale>()
+                {
+                    { "y", new CartesianLinearScale()
+                        {
+                            BeginAtZero = true
+                        }
+                    },
+                    { "x", new Scale()
+                        {
+                            Grid = new Grid()
+                            {
+                                Offset = true,
+                                DrawTicks = false
+                            }
+                        }
+                    },
+                }
+            };
+
+            chart.Options = options;
+
+            chart.Options.Plugins = new Plugins();
+            chart.Options.Plugins.Legend = new Legend();
+            chart.Options.Plugins.Legend.Display = false;
+            chart.Options.Plugins.Title = new Title
+            {
+                Display = true,
+                Text = new List<string>() { "Popular Subcategories" }
+            };
+            return chart;
+        }
+
+        private Chart GenerateLocationsReadBarChart()
+        {
+            Chart chart = new Chart();
+            chart.Type = Enums.ChartType.Bar;
+
+            ChartJSCore.Models.Data data = new ChartJSCore.Models.Data();
+            data.Labels = new List<string>();
+
+            BarDataset dataset = new BarDataset()
+            {
+                Label = "Locations",
+                BackgroundColor = new List<ChartColor>
+                {
+                    ColorPalatte.Purple,
+                    ColorPalatte.Pink,
+                    ColorPalatte.Blue,
+                    ColorPalatte.Grey,
+                    ColorPalatte.Black,
+                    ColorPalatte.DarkRed,
+                    ColorPalatte.Green,
+                    ColorPalatte.Yellow,
+                    ColorPalatte.Red
+                },
+                BorderWidth = new List<int>() { 1 },
+                BarPercentage = .75,
+                MinBarLength = 2,
+                CategoryPercentage = 1.0,
+                Data = new List<double?>()
+            };
+
+            dataset.Data = _context.LocationChartView.Where(x => x.CountRead > 10).OrderByDescending(x => x.CountRead).Select(x => (double?)x.CountRead).ToList();
+            data.Labels = _context.LocationChartView.Where(x => x.CountRead > 10).OrderByDescending(x => x.CountRead).Select(x => x.Name).ToList();
+
+            data.Datasets = new List<Dataset>();
+            data.Datasets.Add(dataset);
+
+            chart.Data = data;
+
+            var options = new Options
+            {
+                MaintainAspectRatio = false,
+                Scales = new Dictionary<string, Scale>()
+                {
+                    { "y", new CartesianLinearScale()
+                        {
+                            BeginAtZero = true
+                        }
+                    },
+                    { "x", new Scale()
+                        {
+                            Grid = new Grid()
+                            {
+                                Offset = true,
+                                DrawTicks = false
+                            }
+                        }
+                    },
+                }
+            };
+
+            chart.Options = options;
+
+            chart.Options.Plugins = new Plugins();
+            chart.Options.Plugins.Legend = new Legend();
+            chart.Options.Plugins.Legend.Display = false;
+            chart.Options.Plugins.Title = new Title
+            {
+                Display = true,
+                Text = new List<string>() { "Popular Book Locations" }
             };
             return chart;
         }

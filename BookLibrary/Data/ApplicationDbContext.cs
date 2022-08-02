@@ -40,6 +40,8 @@ namespace BookLibrary.Data
         public DbSet<TopAuthors> TopAuthors { get; set; }
         public DbSet<BooksPublished> BooksPublished { get; set; }
         public DbSet<PagesHoursByAuthorView> PagesHoursByAuthorView { get; set; }
+        public DbSet<SubcategoryChartView> SubcategoryChartView { get; set; }
+        public DbSet<LocationChartView> LocationChartView { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -174,6 +176,18 @@ namespace BookLibrary.Data
                 {
                     eb.HasNoKey();
                     eb.ToView("PagesHoursByAuthorView");
+                });
+            modelBuilder.Entity<SubcategoryChartView>(
+                eb =>
+                {
+                    eb.HasNoKey();
+                    eb.ToView("SubcategoryChartView");
+                });
+            modelBuilder.Entity<LocationChartView>(
+                eb =>
+                {
+                    eb.HasNoKey();
+                    eb.ToView("LocationChartView");
                 });
         }
 
