@@ -19,6 +19,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.Location[0].LocationType)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Location[0].Books)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Location[0].Authors)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -32,9 +38,15 @@
                 @Html.DisplayFor(modelItem => item.LocationType)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.LocationID">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.LocationID">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.LocationID">Delete</a>
+                @Html.DisplayFor(modelItem => item.Books)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Authors)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.LocationId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.LocationId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.LocationId">Delete</a>
             </td>
         </tr>
 }

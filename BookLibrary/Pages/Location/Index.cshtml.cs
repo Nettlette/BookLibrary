@@ -19,13 +19,13 @@ namespace BookLibrary.Pages.Location
             _context = context;
         }
 
-        public IList<BookLibrary.Models.Location> Location { get;set; } = default!;
+        public IList<BookLibrary.Models.LocationIndex> Location { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
             if (_context.Locations != null)
             {
-                Location = await _context.Locations.OrderBy(x => x.LocationType).ThenBy(x => x.Name).ToListAsync();
+                Location = await _context.LocationIndex.OrderBy(x => x.LocationType).ThenBy(x => x.Name).ToListAsync();
             }
         }
     }
