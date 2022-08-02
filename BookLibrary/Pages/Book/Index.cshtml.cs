@@ -42,6 +42,8 @@ namespace BookLibrary.Pages.Book
         public string? Series { get; set; }
         [BindProperty(SupportsGet = true)]
         public Category? Category { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public bool IsBC { get; set; }
         public SelectList LocationsList { get; set; }
         public SelectList SubcategoriesList { get; set; }
         public SelectList CategoryList { get; set; }
@@ -68,15 +70,33 @@ namespace BookLibrary.Pages.Book
                     BookSearch = BookSearch.Where(x => x.Authors.Contains(Author));
                     param.Append($"&Author=").Append(Author);
                 }
-                if (PublishStartDate != null)
+                if (IsBC == true)
                 {
-                    BookSearch = BookSearch.Where(x => x.Published >= PublishStartDate);
-                    param.Append($"&PublishStartDate=").Append(PublishStartDate);
+                    BookSearch = BookSearch.Where(x => x.IsBC == true);
+                    param.Append($"&IsBC=").Append(IsBC);
+                    if (PublishStartDate != null)
+                    {
+                        BookSearch = BookSearch.Where(x => x.Published <= PublishStartDate);
+                        param.Append($"&PublishStartDate=").Append(PublishStartDate);
+                    }
+                    if (PublishEndDate != null)
+                    {
+                        BookSearch = BookSearch.Where(x => x.Published >= PublishEndDate);
+                        param.Append($"&PublishEndDate=").Append(PublishEndDate);
+                    }
                 }
-                if (PublishEndDate != null)
+                else
                 {
-                    BookSearch = BookSearch.Where(x => x.Published <= PublishEndDate);
-                    param.Append($"&PublishEndDate=").Append(PublishEndDate);
+                    if (PublishStartDate != null)
+                    {
+                        BookSearch = BookSearch.Where(x => x.Published >= PublishStartDate);
+                        param.Append($"&PublishStartDate=").Append(PublishStartDate);
+                    }
+                    if (PublishEndDate != null)
+                    {
+                        BookSearch = BookSearch.Where(x => x.Published <= PublishEndDate);
+                        param.Append($"&PublishEndDate=").Append(PublishEndDate);
+                    }
                 }
                 if (!String.IsNullOrEmpty(Subcategory))
                 {

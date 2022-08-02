@@ -19,6 +19,8 @@ namespace BookLibrary.Models
         public string? Authors { get; set; }
         public string? Subcategories { get; set; }
         public string? Locations { get; set; }
+        [DisplayName("BC?")]
+        public bool IsBC { get; set; }
         [DisplayName("Series")]
         public string SeriesDisplay { get { return SeriesName != null ? SeriesName + " (#" + String.Format("{0:#,0}", SeriesOrder) + ")" : ""; } }
     }
