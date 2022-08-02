@@ -8,7 +8,7 @@ namespace BookLibrary.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-			var sql = @"CREATE VIEW [dbo].[ReaderBooksView]
+			/*var sql = @"CREATE VIEW [dbo].[ReaderBooksView]
 AS
 SELECT
 	r.[ReaderID],
@@ -25,9 +25,9 @@ FROM
 	Books b ON br.[BookId] = b.[BookId] LEFT OUTER JOIN
 	Series s ON b.[SeriesId] = s.[SeriesId]
 ";
-			migrationBuilder.Sql(sql);
+			migrationBuilder.Sql(sql);*/
 
-			sql = @"CREATE VIEW [dbo].[ReaderAuthorView]
+			/*sql = @"CREATE VIEW [dbo].[ReaderAuthorView]
 AS
 SELECT
 	r.[ReaderID],
@@ -41,9 +41,9 @@ GROUP BY
 	r.[ReaderID],
 	a.[Name]
 ";
-			migrationBuilder.Sql(sql);
+			migrationBuilder.Sql(sql);*/
 
-			sql = @"CREATE VIEW [dbo].[ReaderLocationsView]
+			/*sql = @"CREATE VIEW [dbo].[ReaderLocationsView]
 AS
 SELECT
 	r.[ReaderID],
@@ -57,9 +57,9 @@ GROUP BY
 	r.[ReaderID],
 	l.[Name]
 ";
-			migrationBuilder.Sql(sql);
+			migrationBuilder.Sql(sql);*/
 
-			sql = @"CREATE VIEW [dbo].[ReaderSubcategoryView]
+			/*sql = @"CREATE VIEW [dbo].[ReaderSubcategoryView]
 AS
 SELECT
 	r.[ReaderID],
@@ -73,15 +73,15 @@ GROUP BY
 	r.[ReaderID],
 	s.[Name]
 ";
-			migrationBuilder.Sql(sql);
+			migrationBuilder.Sql(sql);*/
 		}
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-			migrationBuilder.Sql(@"DROP VIEW [dbo].[ReaderBooksView]");
-			migrationBuilder.Sql(@"DROP VIEW [dbo].[ReaderAuthorView]");
-			migrationBuilder.Sql(@"DROP VIEW [dbo].[ReaderLocationsView]");
-			migrationBuilder.Sql(@"DROP VIEW [dbo].[ReaderSubcategoryView]");
+			//migrationBuilder.Sql(@"DROP VIEW [dbo].[ReaderBooksView]");
+			//migrationBuilder.Sql(@"DROP VIEW [dbo].[ReaderAuthorView]");
+			//migrationBuilder.Sql(@"DROP VIEW [dbo].[ReaderLocationsView]");
+			//migrationBuilder.Sql(@"DROP VIEW [dbo].[ReaderSubcategoryView]");
 		}
 	}
 }

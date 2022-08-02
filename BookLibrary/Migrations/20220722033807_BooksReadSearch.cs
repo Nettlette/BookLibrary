@@ -8,7 +8,7 @@ namespace BookLibrary.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            var sql = @"CREATE VIEW [dbo].[BooksReadIndex]
+            /*var sql = @"CREATE VIEW [dbo].[BooksReadIndex]
 AS
 WITH
 _BookSubs AS (
@@ -67,12 +67,12 @@ FROM
 	_BookSubs bs ON b.[BookId] = bs.[BookId] LEFT OUTER JOIN
 	_BookLocations bl ON b.[BookId] = bl.[BookId] LEFT OUTER JOIN
 	Series s ON b.[SeriesId] = s.[SeriesId]";
-            migrationBuilder.Sql(sql);
+            migrationBuilder.Sql(sql);*/
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql("DROP VIEW [dbo].[BooksReadIndex]");
+            //migrationBuilder.Sql("DROP VIEW [dbo].[BooksReadIndex]");
         }
     }
 }
