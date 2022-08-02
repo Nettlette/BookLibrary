@@ -58,6 +58,10 @@
                         <input type="date" asp-for="Book.Published" class="form-control" />
                         <span asp-validation-for="Book.Published" class="text-danger"></span>
                     </div>
+                    <div class="form-check">
+                        <input asp-for="Book.IsBC" type="checkbox" class="form-check-input" />
+                        <label asp-for="Book.IsBC" class="form-check-label"></label>
+                    </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">

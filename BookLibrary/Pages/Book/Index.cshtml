@@ -60,6 +60,12 @@
                 </div>
             </div>
             <div class="col-md-3">
+                <div class="form-check">
+                    <input asp-for="IsBC" type="checkbox" class="form-check-input" />
+                    <label asp-for="IsBC" class="form-check-label"></label>
+                </div>
+            </div>
+            <div class="col-md-3">
                 <div class="form-group">
                     <label asp-for="Subcategory" class="control-label"></label>
                     <select asp-for="Subcategory" class="form-control" asp-items="@Model.SubcategoriesList" multiple multiselect-search="true" multiselect-max-items="1"></select>
@@ -129,7 +135,14 @@
                     @Html.DisplayFor(modelItem => item.Authors)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Published)
+                    @if (item.IsBC == true)
+                    {
+                        @(item.Published.Value.Year + " BC")
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(modelItem => item.Published)
+                    }
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Locations)

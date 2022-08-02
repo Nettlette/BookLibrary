@@ -42,6 +42,7 @@ namespace BookLibrary.Data
         public DbSet<PagesHoursByAuthorView> PagesHoursByAuthorView { get; set; }
         public DbSet<SubcategoryChartView> SubcategoryChartView { get; set; }
         public DbSet<LocationChartView> LocationChartView { get; set; }
+        public DbSet<LocationIndex> LocationIndex { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -188,6 +189,12 @@ namespace BookLibrary.Data
                 {
                     eb.HasNoKey();
                     eb.ToView("LocationChartView");
+                });
+            modelBuilder.Entity<LocationIndex>(
+                eb =>
+                {
+                    eb.HasNoKey();
+                    eb.ToView("LocationIndex");
                 });
         }
 

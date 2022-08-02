@@ -8,7 +8,7 @@ namespace BookLibrary.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-			var sql = @"CREATE VIEW [dbo].[SeriesBookView]
+			/*var sql = @"CREATE VIEW [dbo].[SeriesBookView]
 AS
 SELECT
 	s.[SeriesId],
@@ -21,9 +21,9 @@ FROM
 	Series s INNER JOIN
 	Books b ON s.[SeriesId] = b.[SeriesId]
 ";
-			migrationBuilder.Sql(sql);
+			migrationBuilder.Sql(sql);*/
 
-			sql = @"CREATE VIEW [dbo].[SeriesAuthorView]
+			/*sql = @"CREATE VIEW [dbo].[SeriesAuthorView]
 AS
 SELECT
 	s.[SeriesId],
@@ -39,9 +39,9 @@ GROUP BY
 	a.[AuthorId],
 	a.[Name]
 ";
-			migrationBuilder.Sql(sql);
+			migrationBuilder.Sql(sql);*/
 
-			sql = @"CREATE VIEW [dbo].[SeriesSubcategoryView]
+			/*sql = @"CREATE VIEW [dbo].[SeriesSubcategoryView]
 AS
 SELECT
 	s.[SeriesId],
@@ -57,14 +57,14 @@ GROUP BY
 	su.[SubcategoryId],
 	su.[Name]
 ";
-			migrationBuilder.Sql(sql);
+			migrationBuilder.Sql(sql);*/
 		}
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-			migrationBuilder.Sql(@"DROP VIEW [dbo].[SeriesBookView]");
-			migrationBuilder.Sql(@"DROP VIEW [dbo].[SeriesAuthorView]");
-			migrationBuilder.Sql(@"DROP VIEW [dbo].[SeriesSubcategoryView]");
+			//migrationBuilder.Sql(@"DROP VIEW [dbo].[SeriesBookView]");
+			//migrationBuilder.Sql(@"DROP VIEW [dbo].[SeriesAuthorView]");
+			//migrationBuilder.Sql(@"DROP VIEW [dbo].[SeriesSubcategoryView]");
 		}
     }
 }

@@ -8,7 +8,7 @@ namespace BookLibrary.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-			var sql = @"CREATE VIEW [dbo].[ReaderStats]
+			/*var sql = @"CREATE VIEW [dbo].[ReaderStats]
 AS
 WITH
 _TimeToFinish AS
@@ -174,12 +174,12 @@ FROM
 	_ShortBook sb ON t.[ReaderId] = sb.[ReaderId]
 ";
 
-			migrationBuilder.Sql(sql);
+			migrationBuilder.Sql(sql);*/
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql("DROP VIEW [dbo].[ReaderStats]");
+            //migrationBuilder.Sql("DROP VIEW [dbo].[ReaderStats]");
         }
     }
 }

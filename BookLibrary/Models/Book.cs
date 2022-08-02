@@ -15,6 +15,8 @@ namespace BookLibrary.Models
         [NotMapped]
         public string? Author { get; set; }
         public DateTime Published { get; set; }
+        [Display(Name = "BC?")]
+        public bool IsBC { get; set; }
         [NotMapped] 
         public string? Locations { get; set; }
         public int? Pages { get; set; }

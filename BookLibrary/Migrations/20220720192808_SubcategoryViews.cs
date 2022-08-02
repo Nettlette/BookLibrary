@@ -8,7 +8,7 @@ namespace BookLibrary.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-			var sql = @"CREATE VIEW [dbo].[SubcategoryBookDetailView]
+			/*var sql = @"CREATE VIEW [dbo].[SubcategoryBookDetailView]
 AS
 SELECT
 	s.*,
@@ -24,9 +24,9 @@ FROM
 	BookSubcategories bs ON s.[SubcategoryId] = bs.[SubcategoryId] INNER JOIN
 	BookIndex b ON bs.[BookId] = b.[BookId]
 ";
-			migrationBuilder.Sql(sql);
+			migrationBuilder.Sql(sql);*/
 
-			sql = @"CREATE VIEW [dbo].[SubcategoryAuthorDetailView]
+			/*sql = @"CREATE VIEW [dbo].[SubcategoryAuthorDetailView]
 AS
 SELECT
 	s.*,
@@ -43,13 +43,13 @@ GROUP BY
 	a.[AuthorId],
 	a.[Name]
 ";
-			migrationBuilder.Sql(sql);
+			migrationBuilder.Sql(sql);*/
 		}
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-			migrationBuilder.Sql(@"DROP VIEW [dbo].[SubcategoryBookDetailView]");
-			migrationBuilder.Sql(@"DROP VIEW [dbo].[SubcategoryAuthorDetailView]");
+			//migrationBuilder.Sql(@"DROP VIEW [dbo].[SubcategoryBookDetailView]");
+			//migrationBuilder.Sql(@"DROP VIEW [dbo].[SubcategoryAuthorDetailView]");
 		}
     }
 }
