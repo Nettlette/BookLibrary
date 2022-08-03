@@ -14,6 +14,7 @@
         public Category? Category { get; set; }
         public int? SeriesId { get; set; }
         public decimal? SeriesOrder { get; set; }
+        public bool IsBC { get; set; }
         public string? Name { get; set; }
         public string? Locations { get; set; }
         public string? Subcategories { get; set; }

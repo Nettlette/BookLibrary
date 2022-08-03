@@ -19,7 +19,6 @@ namespace BookLibrary.Pages
         private DateTime StartOfWeek = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek);
         private DateTime StartOfMonth = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
         private DateTime StartOfYear = new DateTime(DateTime.Today.Year, 1, 1);
-        public string TestChart;
         public Chart FNFRead;
         public Chart BooksRead12Month;
         public Chart TimeToFinish;
@@ -262,7 +261,7 @@ namespace BookLibrary.Pages
 
             ChartJSCore.Models.Data data = new ChartJSCore.Models.Data();
             data.Labels = new List<string>();
-            DateTime StartDate = DateTime.Now;
+            DateTime StartDate = DateTime.Today;
             StartDate = StartDate.AddMonths(-12).AddDays(-StartDate.Day + 1);
 
             BarDataset fictionDataset = new BarDataset()

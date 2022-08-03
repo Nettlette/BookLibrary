@@ -19,13 +19,13 @@ namespace BookLibrary.Pages.Author
             _context = context;
         }
 
-        public List<BookLibrary.Models.Author> Author { get;set; } = default!;
+        public List<BookLibrary.Models.AuthorIndex> Author { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
             if (_context.Authors != null)
             {
-                Author = await _context.Authors.OrderBy(x => x.Name).ToListAsync();
+                Author = await _context.AuthorIndex.OrderBy(x => x.Name).ToListAsync();
             }
         }
     }

@@ -22,6 +22,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.Author[0].DateDied)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Author[0].Locations)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Author[0].Count)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -30,7 +36,14 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Name)
+                    @if(item.Age != null)
+                    {
+                        @(item.Name + " (Age " + @item.Age + ")")
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(modelItem => item.Name)
+                    }
                 </td>
                 <td>
                     @if (item.DateBorn != null)
@@ -43,6 +56,12 @@
                     {
                         @item.DateDied.Value.ToString("M/d/yyyy")
                     }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Locations)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Count)
                 </td>
                 <td>
                     <a asp-page="./Edit" asp-route-id="@item.AuthorId">Edit</a> |
