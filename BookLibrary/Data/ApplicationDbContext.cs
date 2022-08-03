@@ -43,6 +43,7 @@ namespace BookLibrary.Data
         public DbSet<SubcategoryChartView> SubcategoryChartView { get; set; }
         public DbSet<LocationChartView> LocationChartView { get; set; }
         public DbSet<LocationIndex> LocationIndex { get; set; }
+        public DbSet<AuthorLocationsChart> AuthorLocationsChart { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -195,6 +196,12 @@ namespace BookLibrary.Data
                 {
                     eb.HasNoKey();
                     eb.ToView("LocationIndex");
+                });
+            modelBuilder.Entity<AuthorLocationsChart>(
+                eb =>
+                {
+                    eb.HasNoKey();
+                    eb.ToView("AuthorLocationsChart");
                 });
         }
 

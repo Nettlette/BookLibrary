@@ -29,6 +29,7 @@ namespace BookLibrary.Pages
         public Chart HoursByAuthor;
         public Chart SubcategoriesRead;
         public Chart LocationsRead;
+        public Chart AuthorLocations;
         public List<string> LastBooksFinished;
         public List<string> BooksInProgress;
 
@@ -65,7 +66,7 @@ namespace BookLibrary.Pages
             HoursByAuthor = GenerateHoursByAuthorPieChart();
             SubcategoriesRead = GenerateSubcategoriesReadBarChart();
             LocationsRead = GenerateLocationsReadBarChart();
-
+            AuthorLocations = GenerateAuthorLocationsBarChart();
         }
 
         private Chart GenerateFNFReadPieChart()
@@ -446,18 +447,16 @@ namespace BookLibrary.Pages
 
             fictionDataset.Data = _context.BooksPublished.Where(x => x.Category == Models.Category.Fiction && x.EndDate > EndDate)
                 .OrderBy(x => x.EndDate)
-                .Select(a => new LineScatterData { X = a.EndDate.ToString("MM/dd/yyyy"), Y = a.Published.ToString() })
+                .Select(a => new LineScatterData { X = a.EndDate.ToString("yyyy/M/d"), Y = a.Published.ToString() })
                 .ToList();
 
             nonfictionDataset.Data = _context.BooksPublished.Where(x => x.Category == Models.Category.Nonfiction && x.EndDate > EndDate)
                 .OrderBy(x => x.EndDate)
-                .Select(a => new LineScatterData { X = a.EndDate.ToString("MM/dd/yyyy"), Y = a.Published.ToString() })
+                .Select(a => new LineScatterData { X = a.EndDate.ToString("yyyy/M/d"), Y = a.Published.ToString() })
                 .ToList();
-            List<string> labels = fictionDataset.Data.Select(a => a.X).ToList();
-            labels.AddRange(nonfictionDataset.Data.Select(a => a.X).ToList());
-            labels.Sort();
-            data.Labels = labels;
-
+            data.Labels = _context.BooksPublished.Where(x => x.EndDate > EndDate).OrderBy(x => x.EndDate).Select(a => a.EndDate.ToString("yyyy/M/d")).ToList();
+            data.Labels = data.Labels.Distinct().ToList();
+            data.Labels = data.Labels.OrderBy(x => x).ToList();
             data.Datasets = new List<Dataset>();
             data.Datasets.Add(fictionDataset);
             data.Datasets.Add(nonfictionDataset);
@@ -479,7 +478,12 @@ namespace BookLibrary.Pages
                                 
                             }
                         } 
-                    }
+                    },
+                    //{"x", new CartesianLinearScale()
+                    //    {
+                            
+                    //    }
+                    //}
                 }
             };
             chart.Options = options;
@@ -634,6 +638,79 @@ namespace BookLibrary.Pages
             {
                 Display = true,
                 Text = new List<string>() { "Popular Book Locations" }
+            };
+            return chart;
+        }
+
+        private Chart GenerateAuthorLocationsBarChart()
+        {
+            Chart chart = new Chart();
+            chart.Type = Enums.ChartType.Bar;
+
+            ChartJSCore.Models.Data data = new ChartJSCore.Models.Data();
+            data.Labels = new List<string>();
+
+            BarDataset dataset = new BarDataset()
+            {
+                Label = "Author Locations",
+                BackgroundColor = new List<ChartColor>
+                {
+                    ColorPalatte.Purple,
+                    ColorPalatte.Pink,
+                    ColorPalatte.Blue,
+                    ColorPalatte.Grey,
+                    ColorPalatte.Black,
+                    ColorPalatte.DarkRed,
+                    ColorPalatte.Green,
+                    ColorPalatte.Yellow,
+                    ColorPalatte.Red
+                },
+                BorderWidth = new List<int>() { 1 },
+                BarPercentage = .75,
+                MinBarLength = 2,
+                CategoryPercentage = 1.0,
+                Data = new List<double?>()
+            };
+
+            dataset.Data = _context.AuthorLocationsChart.OrderByDescending(x => x.Count).Select(x => (double?)x.Count).ToList();
+            data.Labels = _context.AuthorLocationsChart.OrderByDescending(x => x.Count).Select(x => x.Name).ToList();
+
+            data.Datasets = new List<Dataset>();
+            data.Datasets.Add(dataset);
+
+            chart.Data = data;
+
+            var options = new Options
+            {
+                MaintainAspectRatio = false,
+                Scales = new Dictionary<string, Scale>()
+                {
+                    { "y", new CartesianLinearScale()
+                        {
+                            BeginAtZero = true
+                        }
+                    },
+                    { "x", new Scale()
+                        {
+                            Grid = new Grid()
+                            {
+                                Offset = true,
+                                DrawTicks = false
+                            }
+                        }
+                    },
+                }
+            };
+
+            chart.Options = options;
+
+            chart.Options.Plugins = new Plugins();
+            chart.Options.Plugins.Legend = new Legend();
+            chart.Options.Plugins.Legend.Display = false;
+            chart.Options.Plugins.Title = new Title
+            {
+                Display = true,
+                Text = new List<string>() { "Where The Authors Are From" }
             };
             return chart;
         }

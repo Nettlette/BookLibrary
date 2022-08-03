@@ -38,11 +38,14 @@
     <div class="col-md-4">
         <canvas id="TimeToFinish" height="250"></canvas>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4">
         <canvas id="SubcategoriesRead" height="250"></canvas>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4">
         <canvas id="LocationsRead" height="250"></canvas>
+    </div>
+    <div class="col-md-4">
+        <canvas id="AuthorLocations" height="250"></canvas>
     </div>
     <div class="col-md-12">
         <canvas id="BooksPublished" height="750"></canvas>
@@ -76,6 +79,9 @@
     </script>
     <script type="text/javascript">
         @Html.Raw(Model.LocationsRead.CreateChartCode("LocationsRead"));
+    </script>
+    <script type="text/javascript">
+        @Html.Raw(Model.AuthorLocations.CreateChartCode("AuthorLocations"));
     </script>
     <script type="text/javascript">
         @Html.Raw(Model.TopAuthors.CreateChartCode("TopAuthors"));
