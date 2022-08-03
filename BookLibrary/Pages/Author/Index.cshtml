@@ -1,15 +1,104 @@
 ﻿@page
 @model BookLibrary.Pages.Author.IndexModel
+@addTagHelper BookLibrary.Extensions.*, BookLibrary
 
 @{
     ViewData["Title"] = "Index";
 }
+<script src="~/js/jquery/dist/jquery.js"></script>
+<script src="~/bootstrap/dist/js/bootstrap.js"></script>
+<link herf="~/bootstrap/dist/css/bootstrap.css" />
+<script src="~/multiselect-dropdown.js"></script>
 
 <h1>Index</h1>
 
 <p>
     <a asp-page="Create">Create New</a>
 </p>
+
+<form asp-action="Index" method="OnGetAsync">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label asp-for="Locations" class="control-label"></label>
+                <select asp-for="Locations" class="form-control" asp-items="@Model.LocationsList" multiple multiselect-search="true" multiselect-max-items="1"></select>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label asp-for="BookCount" class="control-label"></label>
+                <input asp-for="BookCount" class="form-control" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <b>Date Born</b>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label asp-for="DateBornStart" class="control-label"></label>
+                <input asp-for="DateBornStart" type="date" class="form-control" />
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label asp-for="DateBornEnd" class="control-label"></label>
+                <input asp-for="DateBornEnd" type="date" class="form-control" />
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-check">
+                <input asp-for="NoDateBorn" type="checkbox" class="form-check-input" />
+                <label asp-for="NoDateBorn" class="form-check-label"></label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <b>Date Died</b>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label asp-for="DateDiedStart" class="control-label"></label>
+                <input asp-for="DateDiedStart" type="date" class="form-control" />
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label asp-for="DateDiedEnd" class="control-label"></label>
+                <input asp-for="DateDiedEnd" type="date" class="form-control" />
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-check">
+                <input asp-for="NoDateDied" type="checkbox" class="form-check-input" />
+                <label asp-for="NoDateDied" class="form-check-label"></label>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <input type="submit" value="Search" class="btn btn-default" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div search-view-model page-name="Paging.CurrentPage" page-controller="Authors" page-classes-enabled="true" page-class="btn-sm" page-class-normal="btn-secondary btn-sm" page-class-selected="btn-primary btn-sm" paging-model="@Model.Paging" class="btn-group btn-group-sm"></div><br />
+        </div>
+    </div>
+</form>
+
 <table class="table">
     <thead>
         <tr>
