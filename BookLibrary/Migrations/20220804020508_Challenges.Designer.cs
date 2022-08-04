@@ -4,6 +4,7 @@ using BookLibrary.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookLibrary.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220804020508_Challenges")]
+    partial class Challenges
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,7 +44,7 @@ namespace BookLibrary.Migrations
 
                     b.HasKey("AuthorId");
 
-                    b.ToTable("Authors", (string)null);
+                    b.ToTable("Authors");
                 });
 
             modelBuilder.Entity("BookLibrary.Models.AuthorIndex", b =>
@@ -93,7 +95,7 @@ namespace BookLibrary.Migrations
 
                     b.HasIndex("LocationId");
 
-                    b.ToTable("AuthorLocations", (string)null);
+                    b.ToTable("AuthorLocations");
                 });
 
             modelBuilder.Entity("BookLibrary.Models.AuthorLocationsChart", b =>
@@ -175,7 +177,7 @@ namespace BookLibrary.Migrations
 
                     b.HasIndex("SeriesId");
 
-                    b.ToTable("Books", (string)null);
+                    b.ToTable("Books");
                 });
 
             modelBuilder.Entity("BookLibrary.Models.BookAuthor", b =>
@@ -198,7 +200,7 @@ namespace BookLibrary.Migrations
 
                     b.HasIndex("BookId");
 
-                    b.ToTable("BookAuthors", (string)null);
+                    b.ToTable("BookAuthors");
                 });
 
             modelBuilder.Entity("BookLibrary.Models.BookDetailsByAuthorView", b =>
@@ -320,7 +322,7 @@ namespace BookLibrary.Migrations
 
                     b.HasIndex("LocationId");
 
-                    b.ToTable("BookLocations", (string)null);
+                    b.ToTable("BookLocations");
                 });
 
             modelBuilder.Entity("BookLibrary.Models.BookLocationsByAuthorView", b =>
@@ -388,7 +390,7 @@ namespace BookLibrary.Migrations
 
                     b.HasIndex("ReaderId");
 
-                    b.ToTable("BooksRead", (string)null);
+                    b.ToTable("BooksRead");
                 });
 
             modelBuilder.Entity("BookLibrary.Models.BooksReadIndex", b =>
@@ -481,7 +483,7 @@ namespace BookLibrary.Migrations
 
                     b.HasIndex("SubcategoryId");
 
-                    b.ToTable("BookSubcategories", (string)null);
+                    b.ToTable("BookSubcategories");
                 });
 
             modelBuilder.Entity("BookLibrary.Models.Challenge", b =>
@@ -502,7 +504,7 @@ namespace BookLibrary.Migrations
 
                     b.HasKey("ChallengeId");
 
-                    b.ToTable("Challenge", (string)null);
+                    b.ToTable("Challenge");
                 });
 
             modelBuilder.Entity("BookLibrary.Models.ChallengeElement", b =>
@@ -534,7 +536,7 @@ namespace BookLibrary.Migrations
 
                     b.HasIndex("ChallengeId");
 
-                    b.ToTable("ChallengeElement", (string)null);
+                    b.ToTable("ChallengeElement");
                 });
 
             modelBuilder.Entity("BookLibrary.Models.ElementCompleted", b =>
@@ -562,7 +564,7 @@ namespace BookLibrary.Migrations
 
                     b.HasIndex("ReaderId");
 
-                    b.ToTable("ElementCompleted", (string)null);
+                    b.ToTable("ElementCompleted");
                 });
 
             modelBuilder.Entity("BookLibrary.Models.Location", b =>
@@ -582,7 +584,7 @@ namespace BookLibrary.Migrations
 
                     b.HasKey("LocationID");
 
-                    b.ToTable("Locations", (string)null);
+                    b.ToTable("Locations");
                 });
 
             modelBuilder.Entity("BookLibrary.Models.LocationAuthorDetailView", b =>
@@ -712,7 +714,7 @@ namespace BookLibrary.Migrations
 
                     b.HasKey("ReaderID");
 
-                    b.ToTable("Readers", (string)null);
+                    b.ToTable("Readers");
                 });
 
             modelBuilder.Entity("BookLibrary.Models.ReaderAuthorView", b =>
@@ -915,7 +917,7 @@ namespace BookLibrary.Migrations
 
                     b.HasKey("SeriesId");
 
-                    b.ToTable("Series", (string)null);
+                    b.ToTable("Series");
                 });
 
             modelBuilder.Entity("BookLibrary.Models.SeriesAuthorView", b =>
@@ -983,7 +985,7 @@ namespace BookLibrary.Migrations
 
                     b.HasKey("SubcategoryId");
 
-                    b.ToTable("Subcategory", (string)null);
+                    b.ToTable("Subcategory");
                 });
 
             modelBuilder.Entity("BookLibrary.Models.SubcategoryAuthorDetailView", b =>

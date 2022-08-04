@@ -45,6 +45,10 @@ namespace BookLibrary.Data
         public DbSet<LocationIndex> LocationIndex { get; set; }
         public DbSet<AuthorLocationsChart> AuthorLocationsChart { get; set; }
         public DbSet<AuthorIndex> AuthorIndex { get; set; }
+        public DbSet<Challenge> Challenge { get; set; }
+        public DbSet<ChallengeElement> ChallengeElement { get; set; }
+        public DbSet<ElementCompleted> ElementCompleted { get; set; }
+        public DbSet<ChallengeSubscription> ChallengeSubscription { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
