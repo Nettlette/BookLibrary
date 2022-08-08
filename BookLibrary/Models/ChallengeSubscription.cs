@@ -7,5 +7,7 @@
         public int ChallengeId { get; set; }
         public Reader Reader { get; set; }
         public int ReaderId { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
     }
 }
