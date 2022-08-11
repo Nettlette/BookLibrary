@@ -12,7 +12,11 @@
             id = '';
         }
     })
-    insert += '<td><button></button></td></tr>';
+    insert += '<td><a class="btn btn-sm btn-danger" onclick="removeTableRow()">X</a></td></tr>';
     table.append(insert);
     return false;
 }
+
+$('.removeTableRow').on('click', function (event) {
+    $(this).parent().parent().remove();
+});
